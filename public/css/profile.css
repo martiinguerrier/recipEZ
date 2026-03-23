@@ -1,0 +1,199 @@
+/* ------------------------------
+   ESTILOS GENERALES
+--------------------------------*/
+body.recip {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+    color: #333;
+}
+
+/* ------------------------------
+   NAVBAR
+--------------------------------*/
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: white;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.logo {
+    height: 45px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.profile-icon img,
+.avatar-header {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-icon i {
+    font-size: 38px;
+    color: #444;
+}
+
+/* ------------------------------
+   CONTENEDOR PRINCIPAL
+--------------------------------*/
+.profile-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.profile-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+    color: #222;
+}
+
+/* ------------------------------
+   MENSAJE DE ESTADO
+--------------------------------*/
+.status-box {
+    background: #d4f8d4;
+    color: #1b7a1b;
+    padding: 12px 18px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* ------------------------------
+   TARJETAS DE PERFIL
+--------------------------------*/
+.profile-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 25px;
+}
+
+.profile-card {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    border: 1px solid #eaeaea;
+}
+
+.profile-card h2 {
+    margin-top: 0;
+    font-size: 22px;
+    color: #333;
+}
+
+/* ------------------------------
+   AVATAR
+--------------------------------*/
+.avatar-preview {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.avatar-large {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatar-large.bi-person-circle {
+    font-size: 120px;
+    color: #777;
+}
+
+/* ------------------------------
+   FORMULARIOS
+--------------------------------*/
+.profile-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.profile-card label {
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.profile-card input[type="text"],
+.profile-card input[type="email"],
+.profile-card input[type="password"],
+.profile-card input[type="file"] {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+/* ------------------------------
+   BOTONES
+--------------------------------*/
+.btn {
+    background: #ff914d;
+    color: white;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: #ff7a26;
+}
+
+.btn-danger {
+    background: #e74c3c;
+    color: white;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-danger:hover {
+    background: #c0392b;
+}
+
+/* ------------------------------
+   TARJETA PELIGRO
+--------------------------------*/
+.profile-card.danger {
+    border: 1px solid #ffb3b3;
+    background: #fff5f5;
+}
+
+/* ------------------------------
+   RESPONSIVE
+--------------------------------*/
+@media (max-width: 600px) {
+    .navbar {
+        padding: 12px 20px;
+    }
+
+    .profile-container h1 {
+        font-size: 26px;
+    }
+
+    .profile-card {
+        padding: 20px;
+    }
+}
