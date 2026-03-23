@@ -9,7 +9,8 @@
 }
 
 body {
-    background-color: beige;
+    background: linear-gradient(rgba(250, 196, 245, 0.438), rgba(250, 196, 245, 0.438)), url(../img/fondoComida.webp);
+    background-size: cover;
     color: #222;
 }
 
@@ -36,7 +37,7 @@ body {
     padding: 30px;
     width: 380px;
     border-radius: 10px;
-    border: 3px solid #E8A4B8;
+    border: 3px solid #ff8800;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     text-align: center;
 }

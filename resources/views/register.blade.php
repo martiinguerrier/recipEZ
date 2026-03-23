@@ -13,7 +13,7 @@
 
     <header>
         <div class="cabecera">
-            <a href="/"><img class="cabecera" src="{{ asset('img/Título RecipEZ.webp') }}" alt="RecipEZ" class="logo"></a>
+            <a href="/"><img class="cabecera" src="{{ asset('img/Título RecipEZ-rosanegro.webp') }}" alt="RecipEZ" class="logo"></a>
         </div>
     </header>
 

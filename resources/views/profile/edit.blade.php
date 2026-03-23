@@ -28,7 +28,16 @@
                     @endif
                 </a>
             </div>
+
             <span>{{ auth()->user()->name }}</span>
+
+            <!-- 🔴 BOTÓN DE CERRAR SESIÓN -->
+            <form method="POST" action="{{ route('logout') }}" class="logout-form">
+                @csrf
+                <button type="submit" class="logout-btn">
+                    <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                </button>
+            </form>
         </div>
     </header>
 
@@ -122,4 +131,3 @@
 
 </body>
 </html>
-

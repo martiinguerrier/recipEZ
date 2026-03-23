@@ -32,8 +32,8 @@ body.recip {
 
 .profile-icon img,
 .avatar-header {
-    width: 38px;
-    height: 38px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -197,3 +197,23 @@ body.recip {
         padding: 20px;
     }
 }
+
+.logout-form {
+    margin-left: 15px;
+}
+
+.logout-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.logout-btn:hover {
+    color: #ffdddd;
+}
+
