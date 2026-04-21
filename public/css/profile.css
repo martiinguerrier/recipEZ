@@ -1,7 +1,7 @@
 /* ------------------------------
    ESTILOS GENERALES
 --------------------------------*/
-body.recip {
+body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
@@ -145,7 +145,7 @@ body.recip {
 --------------------------------*/
 .btn {
     background: #ff914d;
-    color: white;
+    color: red;
     padding: 10px 14px;
     border: none;
     border-radius: 8px;
@@ -160,7 +160,7 @@ body.recip {
 
 .btn-danger {
     background: #e74c3c;
-    color: white;
+    color: red;
     padding: 10px 14px;
     border: none;
     border-radius: 8px;
@@ -205,7 +205,7 @@ body.recip {
 .logout-btn {
     background: none;
     border: none;
-    color: white;
+    color: red;
     cursor: pointer;
     font-size: 14px;
     display: flex;

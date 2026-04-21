@@ -1,0 +1,54 @@
+.create-recipe-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #ff7a26;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.create-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background: #ff7a26;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.btn-primary:hover {
+    background: #ff5e00;
+}
+
+.placeholder {
+    color: #888;
+    font-style: italic;
+}

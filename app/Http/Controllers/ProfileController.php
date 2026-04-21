@@ -75,4 +75,11 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function recipes()
+    {
+        $recipes = auth()->user()->recipes; // relación hasMany
+        return view('profile.recipes', compact('recipes'));
+    }
+
 }

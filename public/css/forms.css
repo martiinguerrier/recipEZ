@@ -1,0 +1,180 @@
+@font-face {
+    font-family: "Cookie";
+    src: url(../fonts/Cookie/Cookie-Regular.ttf);
+}
+
+@font-face {
+    font-family: "Germagont";
+    src: url(../fonts/germagont/Germagont.ttf);
+}
+
+* {
+    font-family: 'Germagont';
+}
+
+body {
+    background-color: rgb(245, 235, 220);
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Contenedor principal */
+.create-recipe-container,
+.edit-recipe-container {
+    max-width: 60%;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border: #ff8800 2px solid;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Título */
+.create-recipe-container h1,
+.edit-recipe-container h1 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    color: #ff8800;
+    font-weight: 700;
+}
+
+/* Botón volver */
+.back-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #ff8800;
+    font-weight: 600;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.back-btn:hover {
+    color: #ff8800;
+}
+
+/* ============================
+   FORMULARIO
+============================ */
+
+.create-form,
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+/* Grupo de campos */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #444;
+}
+
+/* Inputs y textarea */
+.form-group input,
+.form-group textarea,
+.form-group select {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    background: #fff;
+    transition: border-color .2s, box-shadow .2s;
+    resize: none;
+}
+
+.form-group textarea {
+    height: 200px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #ff8800;
+    box-shadow: 0 0 0 3px rgba(255, 122, 38, 0.2);
+    outline: none;
+}
+
+/* Placeholder de ingredientes */
+.placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+/* ============================
+   BOTONES
+============================ */
+
+.btn-primary {
+    background: #ff7a26;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: .2s;
+}
+
+.btn-primary:hover {
+    background: #ff8800;
+}
+
+.selects{
+    width: 97%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.selects .form-group{
+    width: 30%;
+}
+
+.options-list {
+    max-height: 200px;
+    width: 100%;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    background: #fff;
+    margin-top: 8px;
+}
+
+.option-item {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 0.8rem;
+}
+
+.buscador {
+    width: 100%;
+}
+
+/* ============================
+   RESPONSIVE
+============================ */
+
+@media (max-width: 600px) {
+
+    .create-recipe-container,
+    .edit-recipe-container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .btn-primary {
+        width: 100%;
+    }
+}

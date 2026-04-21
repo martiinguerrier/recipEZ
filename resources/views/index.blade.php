@@ -35,24 +35,24 @@
         <div class="nav-right">
 
             @auth
-            <div class="profile-icon">
-                <a href="/profile">
-                    @if(auth()->user()->avatar)
-                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" class="avatar-small">
-                    @else
-                    <i class="bi bi-person-circle"></i>
-                    @endif
-                </a>
-            </div>
+                <div class="profile-icon">
+                    <a href="{{ route('profile.recipes') }}">
+                        @if(auth()->user()->avatar)
+                            <img src="{{ asset('storage/' . auth()->user()->avatar) }}" class="avatar-small">
+                        @else
+                            <i class="bi bi-person-circle"></i>
+                        @endif
+                    </a>
+                </div>
 
-            <a href="/profile"><span>{{ auth()->user()->name }}</span></a>
+                <a href="{{ route('profile.recipes') }}"><span>{{ auth()->user()->name }}</span></a>
             @endauth
 
             @guest
-            <div class="profile-icon">
-                <a href="/login"><i class="bi bi-person-circle"></i></a>
-            </div>
-            <a href="/login"><span>Sign in/up</span></a>
+                <div class="profile-icon">
+                    <a href="/login"><i class="bi bi-person-circle"></i></a>
+                </div>
+                <a href="/login"><span>Sign in/up</span></a>
             @endguest
 
         </div>
@@ -71,6 +71,9 @@
             <div class="viñetas">
 
                 <div class="destacado" id="milanesanapolitana">
+                    <div class="overlay">
+                        <span>VER</span>
+                    </div>
                     <div class="destacado-top">
                         <div class="destacado-top-top">
                             <div class="destacado-user">
@@ -78,7 +81,7 @@
                                 <span class="username">locosxelasado<i class="bi bi-patch-check-fill"></i></span>
                             </div>
                             <div class="opciones">
-                                <i class="bi bi-three-dots-vertical"></i>
+                                <i class="bi bi-heart"></i>
                             </div>
                         </div>
                         <div class="destacado-titulo">
@@ -92,6 +95,9 @@
                 </div>
 
                 <div class="destacado" id="tartaespinaca">
+                    <div class="overlay">
+                        <span>VER</span>
+                    </div>
                     <div class="destacado-top">
                         <div class="destacado-top-top">
                             <div class="destacado-user">
@@ -112,6 +118,9 @@
 
 
                 <div class="destacado" id="torrijas">
+                    <div class="overlay">
+                        <span>VER</span>
+                    </div>
                     <div class="destacado-top">
                         <div class="destacado-top-top">
                             <div class="destacado-user">
@@ -132,6 +141,55 @@
 
 
                 <div class="destacado" id="lentejasboniato">
+                    <div class="overlay">
+                        <span>VER</span>
+                    </div>
+                    <div class="destacado-top">
+                        <div class="destacado-top-top">
+                            <div class="destacado-user">
+                                <i class="bi bi-person-circle"></i>
+                                <span class="username">karlosarguinano<i class="bi bi-patch-check-fill"></i></span>
+                            </div>
+                            <div class="opciones">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </div>
+                        </div>
+                        <div class="destacado-titulo">
+                            <h1>Lentejas con Boniato</h1>
+                        </div>
+                    </div>
+
+                    <div class="destacado-bottom"></div>
+                </div>
+
+
+                <div class="destacado" id="lentejasboniato">
+                    <div class="overlay">
+                        <span>VER</span>
+                    </div>
+                    <div class="destacado-top">
+                        <div class="destacado-top-top">
+                            <div class="destacado-user">
+                                <i class="bi bi-person-circle"></i>
+                                <span class="username">karlosarguinano<i class="bi bi-patch-check-fill"></i></span>
+                            </div>
+                            <div class="opciones">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </div>
+                        </div>
+                        <div class="destacado-titulo">
+                            <h1>Lentejas con Boniato</h1>
+                        </div>
+                    </div>
+
+                    <div class="destacado-bottom"></div>
+                </div>
+
+
+                <div class="destacado" id="lentejasboniato">
+                    <div class="overlay">
+                        <span>VER</span>
+                    </div>
                     <div class="destacado-top">
                         <div class="destacado-top-top">
                             <div class="destacado-user">

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 </head>
 
-<body class="recip">
+<body>
 
     <header class="navbar">
         <div class="nav-left">
@@ -31,7 +31,6 @@
 
             <span>{{ auth()->user()->name }}</span>
 
-            <!-- 🔴 BOTÓN DE CERRAR SESIÓN -->
             <form method="POST" action="{{ route('logout') }}" class="logout-form">
                 @csrf
                 <button type="submit" class="logout-btn">
