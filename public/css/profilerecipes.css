@@ -179,8 +179,9 @@ main {
 --------------------------------*/
 .recetas-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 25px;
+    margin-top: 20px;
 }
 
 .receta-tarjeta {
@@ -252,13 +253,19 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 150px;
+    padding: 40px;
     text-align: center;
     cursor: pointer;
     transition: .25s ease;
     color: #ff7a26;
     order: -1;
 }
+
+.receta-tarjeta,
+.add-tarjeta {
+    width: 100%;
+}
+
 
 .add-tarjeta:hover {
     background: #ff914d;

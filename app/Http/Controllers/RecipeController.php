@@ -40,11 +40,10 @@ class RecipeController extends Controller
         // Validación
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'steps' => 'required|string',
+            'description' => 'required|string',
 
             // Imagen opcional
-            'image' => 'nullable|image|max:4096',
+            'image' => 'nullable|image|max:2048',
 
             // Ingredientes: obligatorio, mínimo 2
             'ingredients' => 'required|array|min:2',
@@ -94,7 +93,7 @@ class RecipeController extends Controller
         // Solo el dueño puede verla
         abort_unless($recipe->user_id === auth()->id(), 403);
 
-        return view('recipes.show', compact('recipe'));
+        return view('recipes.show-modal', compact('recipe'));
     }
 
     /**
@@ -104,32 +103,52 @@ class RecipeController extends Controller
     {
         abort_unless($recipe->user_id === auth()->id(), 403);
 
-        return view('recipes.edit', compact('recipe'));
+        $ingredients = Ingredient::all();
+        $foodTypes = FoodType::all();
+        $diets = Diet::all();
+
+        return view('recipes.edit', compact('recipe', 'ingredients', 'foodTypes', 'diets'));
     }
+
 
     /**
      * Actualizar una receta
      */
     public function update(Request $request, Recipe $recipe)
     {
-        abort_unless($recipe->user_id === auth()->id(), 403);
 
-        $data = $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|max:4096',
+            'description' => 'required|string',
+            'ingredients' => 'required|array|min:2',
+            'food_type_id' => 'required|array|max:3',
+            'diets' => 'nullable|array',
+            'image' => 'nullable|mimes:jpg,jpeg,png,webp,avif|max:4096',
+            'ingredients.*' => 'exists:ingredients,id',
+            'food_type_id.*' => 'exists:food_types,id',
+            'diets.*' => 'exists:diets,id',
+
         ]);
 
-        // Si sube nueva imagen, reemplazar
+        // Imagen nueva (si se sube)
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('recipes', 'public');
+            $path = $request->file('image')->store('recipes', 'public');
+            $validated['image'] = $path;
         }
 
-        $recipe->update($data);
+        // Actualizar receta
+        $recipe->update($validated);
+
+        // Sincronizar relaciones
+        $recipe->ingredients()->sync($validated['ingredients']);
+        $recipe->foodType()->sync($validated['food_type_id'] ?? []);
+        $recipe->diets()->sync($validated['diets'] ?? []);
+
 
         return redirect()->route('profile.recipes')
-            ->with('status', 'Receta actualizada correctamente.');
+            ->with('success', 'Receta actualizada correctamente');
     }
+
 
     /**
      * Eliminar una receta

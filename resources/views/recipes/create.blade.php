@@ -26,16 +26,10 @@
                 <input type="file" id="image" name="image" accept="image/*">
             </div>
 
-            {{-- Descripción --}}
+            {{-- Preparación --}}
             <div class="form-group">
-                <label for="description">Descripción</label>
-                <textarea id="description" name="description" rows="4">{{ old('description') }}</textarea>
-            </div>
-
-            {{-- Pasos --}}
-            <div class="form-group">
-                <label for="steps">Preparación *</label>
-                <textarea id="steps" name="steps" rows="6" required>{{ old('steps') }}</textarea>
+                <label for="description">Preparación *</label>
+                <textarea id="description" name="description" rows="6" required>{{ old('description') }}</textarea>
             </div>
 
             <div class="selects">
