@@ -98,3 +98,27 @@
     transform: scale(1);
     opacity: 1;
 }
+
+.modal-like-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.modal-like-icon {
+    font-size: 28px;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.15s ease;
+}
+
+.modal-like-icon:hover {
+    transform: scale(1.15);
+}
+
+.modal-likes-count {
+    font-size: 18px;
+    color: #555;
+}
+

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\RecipeLikeController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -32,6 +34,11 @@ Route::middleware('auth')->group(function () {
 
     // CRUD de recetas
     Route::resource('recipes', RecipeController::class);
+
+    //Likes
+    Route::post('/recipes/{id}/like', [RecipeLikeController::class, 'toggle'])
+        ->middleware('auth')
+        ->name('recipes.like');
 });
 
 // Rutas de autenticación generadas por Breeze

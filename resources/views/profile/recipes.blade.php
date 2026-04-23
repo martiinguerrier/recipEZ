@@ -1,6 +1,6 @@
 @extends('layouts.clean')
 
-@section('title', 'Perfil')
+@section('title', 'Perfil Personal')
 
 @section('content')
 
@@ -77,6 +77,13 @@
                                 @method('DELETE')
                                 <button class="btn-danger-small"><i class="bi bi-trash3"></i></button>
                             </form>
+
+                            <i class="bi bi-heart-fill"></i>
+                            <div class="likes" id="likes-{{ $recipe->id }}">
+                                 {{ $recipe->likes->count() }}
+                            </div>
+
+
                         </div>
 
                     </div>
@@ -202,6 +209,43 @@
             });
 
         });
+
+        window.toggleLikeModal = function (recipeId) {
+            console.log('CLICK LIKE MODAL', recipeId);
+
+            fetch(`/recipes/${recipeId}/like`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+
+                    // Contador del modal
+                    const modalCount = document.getElementById(`modal-likes-count-${recipeId}`);
+                    if (modalCount) {
+                        modalCount.innerText = data.count;
+                    }
+
+                    // Contador de la tarjeta
+                    const cardLikes = document.getElementById(`likes-${recipeId}`);
+                    if (cardLikes) {
+                        cardLikes.innerHTML = data.count;
+                    }
+
+                    // Corazón del modal
+                    const btn = document.getElementById(`modal-like-btn-${recipeId}`);
+                    if (btn) {
+                        btn.innerHTML = data.liked ? `<i class="bi bi-heart-fill"></i>`
+                            : `<i class="bi bi-heart"></i>`;
+                    }
+                });
+        }
+
+
+
+
     </script>
 
 

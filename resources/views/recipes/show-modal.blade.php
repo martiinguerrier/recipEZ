@@ -11,6 +11,19 @@
     <div class="modal-right">
 
         <h2 class="modal-title">{{ $recipe->title }}</h2>
+        <span id="modal-like-btn-{{ $recipe->id }}" class="modal-like-icon"
+            onclick="toggleLikeModal({{ $recipe->id }})">
+            @if($recipe->likedBy(auth()->user()))
+                <i class="bi bi-heart-fill"></i>
+            @else
+                <i class="bi bi-heart"></i>
+            @endif
+        </span>
+
+        <span id="modal-likes-count-{{ $recipe->id }}" class="modal-likes-count">
+            {{ $recipe->likes->count() }}
+        </span>
+
 
         {{-- Ingredientes --}}
         <div class="modal-section">

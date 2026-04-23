@@ -35,4 +35,9 @@ class User extends Authenticatable
         return $this->hasMany(\App\Models\Recipe::class);
     }
 
+    public function likedRecipes()
+    {
+        return $this->belongsToMany(Recipe::class, 'recipe_likes');
+    }
+
 }

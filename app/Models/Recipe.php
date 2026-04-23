@@ -33,5 +33,15 @@ class Recipe extends Model
         return $this->belongsToMany(Diet::class);
     }
 
+    public function likes()
+    {
+        return $this->hasMany(RecipeLike::class);
+    }
+
+    public function likedBy(User $user)
+    {
+        return $this->likes()->where('user_id', $user->id)->exists();
+    }
+
 }
 
