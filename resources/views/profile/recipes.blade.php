@@ -69,18 +69,22 @@
                         <h3>{{ $recipe->title }}</h3>
 
                         <div class="receta-actions">
-                            <a href="{{ route('recipes.edit', $recipe->id) }}" class="btn-small"><i
-                                    class="bi bi-pencil-square"></i></a>
+                            <div class="delEdit">
+                                <a href="{{ route('recipes.edit', $recipe->id) }}" class="btn-small"><i
+                                        class="bi bi-pencil-square"></i></a>
 
-                            <form action="{{ route('recipes.destroy', $recipe->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn-danger-small"><i class="bi bi-trash3"></i></button>
-                            </form>
+                                <form action="{{ route('recipes.destroy', $recipe->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn-danger-small"><i class="bi bi-trash3"></i></button>
+                                </form>
+                            </div>
 
-                            <i class="bi bi-heart-fill"></i>
-                            <div class="likes" id="likes-{{ $recipe->id }}">
-                                 {{ $recipe->likes->count() }}
+                            <div class="likes1">
+                                <i class="bi bi-heart-fill"></i>
+                                <div class="likes" id="likes-{{ $recipe->id }}">
+                                    {{ $recipe->likes->count() }}
+                                </div>
                             </div>
 
 
@@ -96,7 +100,7 @@
 
             <div id="recipe-modal" class="modal-overlay" style="display:none;">
                 <div class="modal-content">
-                    <button class="modal-close">×</button>
+                    <button class="modal-close"></button>
                     <div id="modal-body">
                         <!-- Aquí se cargará la receta -->
                     </div>
@@ -237,7 +241,7 @@
                     // Corazón del modal
                     const btn = document.getElementById(`modal-like-btn-${recipeId}`);
                     if (btn) {
-                        btn.innerHTML = data.liked ? `<i class="bi bi-heart-fill"></i>`
+                        btn.innerHTML = data.liked ? `<i class="bi bi-heart-fill" style="color: red;"></i>`
                             : `<i class="bi bi-heart"></i>`;
                     }
                 });

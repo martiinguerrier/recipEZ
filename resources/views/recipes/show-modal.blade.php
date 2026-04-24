@@ -10,19 +10,23 @@
     {{-- Contenido a la derecha --}}
     <div class="modal-right">
 
-        <h2 class="modal-title">{{ $recipe->title }}</h2>
-        <span id="modal-like-btn-{{ $recipe->id }}" class="modal-like-icon"
-            onclick="toggleLikeModal({{ $recipe->id }})">
-            @if($recipe->likedBy(auth()->user()))
-                <i class="bi bi-heart-fill"></i>
-            @else
-                <i class="bi bi-heart"></i>
-            @endif
-        </span>
+        <div class="modal-top-right">
+            <h2 class="modal-title">{{ $recipe->title }}</h2>
+            <div class="likes1">
+                <span id="modal-like-btn-{{ $recipe->id }}" class="modal-like-icon"
+                    onclick="toggleLikeModal({{ $recipe->id }})">
+                    @if($recipe->likedBy(auth()->user()))
+                        <i class="bi bi-heart-fill"></i>
+                    @else
+                        <i class="bi bi-heart"></i>
+                    @endif
+                </span>
 
-        <span id="modal-likes-count-{{ $recipe->id }}" class="modal-likes-count">
-            {{ $recipe->likes->count() }}
-        </span>
+                <span id="modal-likes-count-{{ $recipe->id }}" class="modal-likes-count">
+                    {{ $recipe->likes->count() }}
+                </span>
+            </div>
+        </div>
 
 
         {{-- Ingredientes --}}

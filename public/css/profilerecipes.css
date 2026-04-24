@@ -246,6 +246,18 @@ main {
     align-items: center;
 }
 
+.delEdit{
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+}
+
+.likes1{
+    display: flex;
+    justify-content: space-between;
+    width: 8%;
+}
+
 .add-tarjeta {
     background: #ffe5d1;
     border: 2px dashed #ff914d;
