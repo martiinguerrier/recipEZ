@@ -8,7 +8,7 @@
     src: url(../fonts/germagont/Germagont.ttf);
 }
 
-html{
+html {
     scroll-behavior: smooth;
 }
 
@@ -32,121 +32,6 @@ a:visited {
     color: inherit;
 }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0px 30px;
-    background-color: #E8A4B8;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    border-bottom: #ff8800 solid 5px;
-    border-top: #ff8800 solid 5px;
-}
-
-.nav-left {
-    display: flex;
-    align-items: center;
-}
-
-.logo {
-    width: 150px;
-    padding: 20px 10px;
-    margin-right: 10%;
-    cursor: pointer;
-    filter: brightness(0);
-}
-
-.rrss {
-    margin-top: 2%;
-}
-
-.rrss i {
-    color: black;
-    font-size: x-large;
-    margin: 3%;
-    cursor: pointer;
-}
-
-.nav-center {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-}
-
-.search-container {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 30px;
-    padding: 6px 10px;
-    width: 60%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.search-input {
-    flex: 1;
-    border: none;
-    outline: none;
-    font-size: 15px;
-    padding: 8px;
-    background: transparent;
-}
-
-.nav-center i {
-    margin-top: 0.5%;
-    margin-right: 1%;
-    padding-right: 1%;
-    padding-top: 0.5%;
-    padding-bottom: 0.5%;
-    color: #979797;
-    border-right: #979797 solid 1px;
-    cursor: pointer;
-}
-
-.filter-btn {
-    border: none;
-    background: #ff8800;
-    color: white;
-    padding: 8px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0px;
-    transition: 0.4s ease;
-}
-
-.filter-btn:hover {
-    font-size: 18px;
-}
-
-
-.nav-right {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-}
-
-.nav-right span {
-    color: rgb(0, 0, 0);
-}
-
-.profile-icon {
-    font-size: 50px;
-    color: white;
-}
-
-.avatar-small {
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: white solid 2px;
-}
-
 
 .hero {
     text-align: center;
@@ -156,6 +41,7 @@ a:visited {
     background-position-y: 10%;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    border-bottom: #ff8800 solid 5px;
 }
 
 .hero h1 {
@@ -174,7 +60,6 @@ a:visited {
 main {
     display: flex;
     justify-content: center;
-    border-top: #ff8800 solid 5px;
     padding-bottom: 5%;
 }
 
@@ -208,13 +93,13 @@ main {
     position: relative;
 }
 
-.destacado .overlay{
+.destacado .overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -226,7 +111,7 @@ main {
 }
 
 .destacado:hover .overlay {
-    background: rgba(0,0,0,0.55);
+    background: rgba(0, 0, 0, 0.55);
     opacity: 1;
 }
 
@@ -241,7 +126,7 @@ main {
 
 .destacado-top {
     height: 25%;
-    padding: 2%; 
+    padding: 2%;
 }
 
 .destacado-top-top {
@@ -283,83 +168,6 @@ main {
     width: 100%;
     height: 75%;
     border-top: #E8A4B8 solid 2px;
-}
-
-
-
-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding: 5%;
-    margin-top: 3%;
-    background-color: #7a7a7a;
-    color: white;
-}
-
-.footer-container {
-    width: 77%;
-}
-
-.footer-top {
-    width: 100%;
-    border-bottom: white solid 2px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.logoBlanco {
-    width: 120px;
-    margin-bottom: 3%;
-}
-
-.volver {
-    width: 15%;
-}
-
-.volver-btn {
-    border: white 3px solid;
-    border-radius: 50px;
-    padding: 4%;
-    background-color: rgba(0, 0, 0, 0);
-    color: white;
-    transition: 0.3s ease;
-}
-
-.volver-btn:hover{
-    color: #E8A4B8;
-    border-color: #E8A4B8;
-}
-
-
-.footer-mid {
-    margin-top: 2%;
-    padding-bottom: 2%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    border-bottom: white solid 2px;
-}
-
-.footer-mid div ul {
-    list-style-type: none;
-    padding-left: 0%;
-    line-height: 150%;
-}
-
-.footer-mid li{
-    transition: 0.3s ease;
-}
-
-.footer-mid li:hover{
-    color: #E8A4B8;
-}
-
-.footer-bottom {
-    margin: 2%;
-    text-align: end;
 }
 
 

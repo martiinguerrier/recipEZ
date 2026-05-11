@@ -1,159 +1,77 @@
 @extends('layouts.clean')
 
-@section('title', 'Perfil Personal')
+@section('title', 'RecipEZ - ' . auth()->user()->name)
 
 @section('content')
 
 
-    <body>
-        <div id="inicio"></div>
-        <header class="navbar">
-            <div class="nav-left">
-                <a href="/"><img src="{{ asset('img/Título RecipEZ.webp') }}" alt="RecipEZ" class="logo"></a>
-                <div class="rrss">
-                    <i class="bi-instagram"></i>
-                    <i class="bi-facebook"></i>
-                    <i class="bi-tiktok"></i>
-                    <i class="bi-youtube"></i>
+    <main class="profile-container">
+
+        <h1>Mis Recetas</h1>
+
+        <div class="recetas-grid">
+
+            {{-- Tarjeta especial para añadir receta --}}
+            <a href="{{ route('recipes.create') }}" class="add-tarjeta">
+                <div class="add-contenido">
+                    <i class="bi bi-plus-lg"></i>
+                    <span>Añadir receta</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="nav-center">
-                <div class="search-container">
-                    <input type="text" placeholder="Buscar recetas, ingredientes, usuarios . . ." class="search-input">
-                    <i class="bi bi-search"></i>
-                    <button class="filter-btn"><b>☰</b></button>
-                </div>
-            </div>
+            @forelse($recipes as $recipe)
+                <div class="receta-tarjeta" data-id="{{ $recipe->id }}">
 
-            <div class="nav-right">
-                <div class="profile-icon">
-                    <a href="/profile">
-                        @if(auth()->user()->avatar)
-                            <img src="{{ asset('storage/' . auth()->user()->avatar) }}" class="avatar-small">
-                        @else
-                            <i class="bi bi-person-circle"></i>
-                        @endif
-                    </a>
-                </div>
-
-                <span>{{ auth()->user()->name }}</span>
-
-                <a href="{{ route('profile.edit') }}" class="btn-secondary">AJUSTES DE PERFIL</a>
-
-            </div>
-        </header>
-
-        <main class="profile-container">
-
-            <h1>Mis Recetas</h1>
-
-            <div class="recetas-grid">
-
-                {{-- Tarjeta especial para añadir receta --}}
-                <a href="{{ route('recipes.create') }}" class="add-tarjeta">
-                    <div class="add-contenido">
-                        <i class="bi bi-plus-lg"></i>
-                        <span>Añadir receta</span>
+                    <div class="receta-image">
+                        <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->title }}">
+                        <div class="overlay"><span>VER</span></div>
                     </div>
-                </a>
 
-                @forelse($recipes as $recipe)
-                    <div class="receta-tarjeta" data-id="{{ $recipe->id }}">
+                    <h3>{{ $recipe->title }}</h3>
 
-                        <div class="receta-image">
-                            <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->title }}">
-                            <div class="overlay"><span>VER</span></div>
+                    <div class="receta-actions">
+                        <div class="delEdit">
+                            <a href="{{ route('recipes.edit', $recipe->id) }}" class="btn-small"><i
+                                    class="bi bi-pencil-square"></i></a>
+
+                            <form action="{{ route('recipes.destroy', $recipe->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn-danger-small"><i class="bi bi-trash3"></i></button>
+                            </form>
                         </div>
 
-                        <h3>{{ $recipe->title }}</h3>
-
-                        <div class="receta-actions">
-                            <div class="delEdit">
-                                <a href="{{ route('recipes.edit', $recipe->id) }}" class="btn-small"><i
-                                        class="bi bi-pencil-square"></i></a>
-
-                                <form action="{{ route('recipes.destroy', $recipe->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn-danger-small"><i class="bi bi-trash3"></i></button>
-                                </form>
+                        <div class="likes1">
+                            <i class="bi bi-heart-fill"></i>
+                            <div class="likes" id="likes-{{ $recipe->id }}">
+                                {{ $recipe->likes->count() }}
                             </div>
-
-                            <div class="likes1">
-                                <i class="bi bi-heart-fill"></i>
-                                <div class="likes" id="likes-{{ $recipe->id }}">
-                                    {{ $recipe->likes->count() }}
-                                </div>
-                            </div>
-
-
                         </div>
 
+
                     </div>
 
-                @empty
-                    <p class="no-recetas">Todavía no has creado ninguna receta.</p>
-                @endforelse
+                </div>
 
-            </div>
+            @empty
+                <p class="no-recetas">Todavía no has creado ninguna receta.</p>
+            @endforelse
 
-            <div id="recipe-modal" class="modal-overlay" style="display:none;">
-                <div class="modal-content">
-                    <button class="modal-close"></button>
-                    <div id="modal-body">
-                        <!-- Aquí se cargará la receta -->
-                    </div>
+        </div>
+
+        <div id="recipe-modal" class="modal-overlay" style="display:none;">
+            <div class="modal-content">
+                <button class="modal-close"></button>
+                <div id="modal-body">
+                    <!-- Aquí se cargará la receta -->
                 </div>
             </div>
+        </div>
 
 
 
-        </main>
+    </main>
 
-
-        <footer>
-            <div class="footer-container">
-                <div class="footer-top">
-                    <div><img class="logoBlanco" src="{{ asset('img/logoBlanco.webp') }}" alt="RecipEZ"></div>
-                    <div class="volver"><a href="#inicio"><button class="volver-btn"><b>VOLVER ARRIBA</b></button></a></div>
-                </div>
-                <div class="footer-mid">
-                    <div>
-                        <h3>Navegación</h3>
-                        <ul>
-                            <li><a href="/">Inicio</a></li>
-                            <li><a href="/login">Iniciar sesión</a></li>
-                            <li><a href="/register">Registrarse</a></li>
-                            <li>Cerrar sesión</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3>Redes Sociales</h3>
-                        <ul>
-                            <li>Instagram</li>
-                            <li>Facebook</li>
-                            <li>Tik Tok</li>
-                            <li>YouTube</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3>Información Legal</h3>
-                        <ul>
-                            <li>Condiciones de uso</li>
-                            <li>Aviso de cookies</li>
-                            <li>Configuración de cookies</li>
-                            <li>Declaración de Accesibilidad</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <span>&copy 2026 RecipEZ - Todos los derechos reservados</span>
-                </div>
-            </div>
-        </footer>
-
-    </body>
 
     </html>
 

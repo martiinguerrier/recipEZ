@@ -9,6 +9,8 @@
     <title>@yield('title', 'RecipEZ')</title>
 
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="icon" type="image/png" href="{{ asset('img/Favicon RecipEZ.png') }}">
 </head>
@@ -18,8 +20,11 @@
     {{-- NAVBAR --}}
     @include('partials.navbar')
 
+    {{-- HERO --}}
+    @include('partials.hero')
+
     {{-- CONTENIDO --}}
-    <main class="page-content">
+    <main>
         @yield('content')
     </main>
 
@@ -27,4 +32,5 @@
     @include('partials.footer')
 
 </body>
+
 </html>

@@ -1,7 +1,7 @@
 <div id="inicio"></div>
 <header class="navbar">
     <div class="nav-left">
-        <img src="{{ asset('img/Título RecipEZ.webp') }}" alt="RecipEZ" class="logo">
+        <a href="/"><img src="{{ asset('img/Título RecipEZ.webp') }}" alt="RecipEZ" class="logo"></a>
         <div class="rrss">
             <i class="bi-instagram"></i>
             <i class="bi-facebook"></i>
@@ -32,6 +32,8 @@
             </div>
 
             <a href="{{ route('profile.recipes') }}"><span>{{ auth()->user()->name }}</span></a>
+
+            <a href="{{ route('profile.edit') }}" class="btn-secondary">AJUSTES DE PERFIL</a>
         @endauth
 
         @guest

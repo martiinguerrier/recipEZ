@@ -42,7 +42,7 @@
 
     <main class="profile-container">
 
-        <h1>Mi Perfil</h1>
+        <h1>Configuración de Perfil</h1>
 
         @if (session('status'))
             <div class="status-box">
@@ -108,7 +108,7 @@
                 </form>
             </section>
 
-            <section class="profile-card danger">
+            <section class="profile-card">
                 <h2>Eliminar Cuenta</h2>
 
                 <p>Esta acción no se puede deshacer.</p>

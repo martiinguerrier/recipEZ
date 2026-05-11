@@ -1,11 +1,24 @@
-/* ------------------------------
-   ESTILOS GENERALES
---------------------------------*/
+@font-face {
+    font-family: "Cookie";
+    src: url(../fonts/Cookie/Cookie-Regular.ttf);
+}
+
+@font-face {
+    font-family: "Germagont";
+    src: url(../fonts/germagont/Germagont.ttf);
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+*{
+    font-family: 'Germagont';
+}
+
 body {
     margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: #fafafa;
-    color: #333;
+    background-color: rgb(245, 235, 220);
 }
 
 /* ------------------------------
@@ -16,18 +29,30 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px 40px;
-    background: white;
-    border-bottom: 1px solid #e5e5e5;
+    background: #E8A4B8;
+    border-bottom: #ff8800 solid 5px;
+    border-top: #ff8800 solid 5px;
 }
 
 .logo {
-    height: 45px;
+    width: 150px;
+    padding: 20px 10px;
+    margin-right: 10%;
+    cursor: pointer;
+    filter: brightness(0);
 }
 
 .nav-right {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 7px;
+}
+
+.nav-right form button{
+    padding: 5px;
+    background-color: white;
+    border-radius: 50px;
 }
 
 .profile-icon img,
@@ -36,6 +61,7 @@ body {
     height: 55px;
     border-radius: 50%;
     object-fit: cover;
+    border: 2px solid white;
 }
 
 .profile-icon i {
@@ -86,7 +112,11 @@ body {
     padding: 25px;
     border-radius: 14px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-    border: 1px solid #eaeaea;
+    border: 2px solid #ff8800;
+}
+
+.profile-card:last-child{
+    border: 2px solid rgb(249, 104, 104);
 }
 
 .profile-card h2 {
@@ -122,8 +152,14 @@ body {
 .profile-card form {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 12px;
 }
+
+.profile-card form button {
+    margin-top: auto;
+}
+
 
 .profile-card label {
     font-weight: 600;
@@ -145,7 +181,7 @@ body {
 --------------------------------*/
 .btn {
     background: #ff914d;
-    color: red;
+    color: white;
     padding: 10px 14px;
     border: none;
     border-radius: 8px;
@@ -155,12 +191,12 @@ body {
 }
 
 .btn:hover {
-    background: #ff7a26;
+    background: #ff8800;
 }
 
 .btn-danger {
     background: #e74c3c;
-    color: red;
+    color: white;
     padding: 10px 14px;
     border: none;
     border-radius: 8px;
@@ -170,7 +206,7 @@ body {
 }
 
 .btn-danger:hover {
-    background: #c0392b;
+    background: rgb(183, 0, 0);
 }
 
 /* ------------------------------
@@ -198,9 +234,6 @@ body {
     }
 }
 
-.logout-form {
-    margin-left: 15px;
-}
 
 .logout-btn {
     background: none;
@@ -214,6 +247,6 @@ body {
 }
 
 .logout-btn:hover {
-    color: #ffdddd;
+    color: rgb(183, 0, 0);
 }
 
