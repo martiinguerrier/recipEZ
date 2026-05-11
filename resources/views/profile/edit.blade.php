@@ -20,7 +20,7 @@
 
         <div class="nav-right">
             <div class="profile-icon">
-                <a href="/profile">
+                <a href="/recipes">
                     @if(auth()->user()->avatar)
                         <img src="{{ asset('storage/' . auth()->user()->avatar) }}" class="avatar-header">
                     @else
@@ -53,7 +53,7 @@
         <div class="profile-sections">
 
             <section class="profile-card">
-                <h2>Avatar</h2>
+                <h2>Foto de Perfil</h2>
 
                 <div class="avatar-preview">
                     @if(auth()->user()->avatar)
@@ -65,9 +65,9 @@
 
                 <form method="POST" action="{{ route('profile.avatar') }}" enctype="multipart/form-data">
                     @csrf
-                    <label for="avatar">Subir nuevo avatar</label>
+                    <label for="avatar">Subir nueva foto de perfil</label>
                     <input type="file" name="avatar" id="avatar" accept="image/*">
-                    <button type="submit" class="btn">Guardar Avatar</button>
+                    <button type="submit" class="btn">Guardar Foto de Perfil</button>
                 </form>
             </section>
 

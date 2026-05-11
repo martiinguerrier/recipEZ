@@ -128,9 +128,15 @@ main {
 }
 
 .likes1{
-    display: flex;
-    justify-content: space-between;
     width: 8%;
+}
+
+.modal-like-icon{
+    margin-right: 5px;
+}
+
+.modal-likes-count{
+    margin-left: 5px;
 }
 
 .add-tarjeta {
@@ -154,10 +160,10 @@ main {
 }
 
 
-.add-tarjeta:hover {
+.add-tarjeta:hover{
     background: #ff914d;
-    color: white;
     border-color: #ff7a26;
+    color: white;
 }
 
 .add-contenido {
@@ -175,10 +181,6 @@ main {
 .add-tarjeta span {
     font-size: 1.1rem;
     font-weight: 600;
-}
-
-.add-tarjeta:visited{
-    color: #ff8800;
 }
 
 .btn-small {

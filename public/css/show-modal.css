@@ -24,6 +24,10 @@
     gap: 20px;
 }
 
+#modal-body{
+    width: 100%;
+}
+
 /* Botón cerrar */
 .modal-close {
     visibility: hidden;

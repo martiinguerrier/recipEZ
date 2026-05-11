@@ -1,9 +1,16 @@
-@extends('layouts.clean')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('title', 'Crear receta')
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/forms.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="icon" type="image/png" href="{{ asset('img/Favicon RecipEZ.png') }}">
+    <title>Document</title>
+</head>
 
-@section('content')
-
+<body>
     <main class="create-recipe-container">
 
         {{-- Botón volver --}}
@@ -40,10 +47,10 @@
 
                     <div class="options-list" id="ingredients-list">
                         @foreach($ingredients as $ingredient)
-                            <label class="option-item">
-                                <span>{{ $ingredient->name }}</span>
-                                <input type="checkbox" name="ingredients[]" value="{{ $ingredient->id }}">
-                            </label>
+                        <label class="option-item">
+                            <span>{{ $ingredient->name }}</span>
+                            <input type="checkbox" name="ingredients[]" value="{{ $ingredient->id }}">
+                        </label>
                         @endforeach
                     </div>
                 </div>
@@ -55,10 +62,10 @@
 
                     <div class="options-list" id="foodtypes-list">
                         @foreach($foodTypes as $type)
-                            <label class="option-item">
-                                <span>{{ $type->name }}</span>
-                                <input type="checkbox" name="food_type_id[]" value="{{ $type->id }}">
-                            </label>
+                        <label class="option-item">
+                            <span>{{ $type->name }}</span>
+                            <input type="checkbox" name="food_type_id[]" value="{{ $type->id }}">
+                        </label>
                         @endforeach
                     </div>
                 </div>
@@ -70,10 +77,10 @@
 
                     <div class="options-list" id="diets-list">
                         @foreach($diets as $diet)
-                            <label class="option-item">
-                                <span>{{ $diet->name }}</span>
-                                <input type="checkbox" name="diets[]" value="{{ $diet->id }}">
-                            </label>
+                        <label class="option-item">
+                            <span>{{ $diet->name }}</span>
+                            <input type="checkbox" name="diets[]" value="{{ $diet->id }}">
+                        </label>
                         @endforeach
                     </div>
                 </div>
@@ -134,7 +141,6 @@
             }
         });
     </script>
+</body>
 
-
-
-@endsection
+</html>
