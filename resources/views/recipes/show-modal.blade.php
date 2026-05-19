@@ -15,7 +15,7 @@
             <div class="likes1">
                 <span id="modal-like-btn-{{ $recipe->id }}" class="modal-like-icon"
                     onclick="toggleLikeModal({{ $recipe->id }})">
-                    @if($recipe->likedBy(auth()->user()))
+                    @if(auth()->check() && $recipe->likedBy(auth()->user()))
                         <i class="bi bi-heart-fill"></i>
                     @else
                         <i class="bi bi-heart"></i>

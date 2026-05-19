@@ -6,9 +6,11 @@ use App\Http\Controllers\RecipeLikeController;
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('index');
-});
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\SearchController;
+
+Route::get('/', [IndexController::class, 'index'])->name('home');
+
 
 // Dashboard protegido por auth + verified
 Route::get('/dashboard', function () {
@@ -32,8 +34,8 @@ Route::middleware('auth')->group(function () {
     // Mis recetas (vista personalizada)
     Route::get('/profile/recipes', [ProfileController::class, 'recipes'])->name('profile.recipes');
 
-    // CRUD de recetas
-    Route::resource('recipes', RecipeController::class);
+    // CRUD de recetas (excepto show, que es público)
+    Route::resource('recipes', RecipeController::class)->except(['show']);
 
     //Likes
     Route::post('/recipes/{id}/like', [RecipeLikeController::class, 'toggle'])
@@ -41,5 +43,14 @@ Route::middleware('auth')->group(function () {
         ->name('recipes.like');
 });
 
+// Ruta pública para ver el modal de una receta
+Route::get('/recipes/{recipe}', [RecipeController::class, 'show'])->name('recipes.show');
+
+// Perfil público de cualquier usuario
+Route::get('/users/{user}', [ProfileController::class, 'show'])->name('profile.show');
+
+// Buscador en tiempo real
+Route::get('/search', [SearchController::class, 'search'])->name('search');
+
 // Rutas de autenticación generadas por Breeze
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

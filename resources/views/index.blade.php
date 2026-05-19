@@ -4,148 +4,148 @@
 
 @section('content')
 
-    <div class="destacadas">
-        <h1>Recetas Destacadas de la Semana</h1>
-        <div class="viñetas">
+<main class="profile-container">
 
-            <div class="destacado" id="milanesanapolitana">
-                <div class="overlay">
-                    <span>VER</span>
-                </div>
-                <div class="destacado-top">
-                    <div class="destacado-top-top">
-                        <div class="destacado-user">
-                            <i class="bi bi-person-circle"></i>
-                            <span class="username">locosxelasado<i class="bi bi-patch-check-fill"></i></span>
-                        </div>
-                        <div class="opciones">
-                            <i class="bi bi-heart"></i>
-                        </div>
-                    </div>
-                    <div class="destacado-titulo">
-                        <h1>Milanesa a la napolitana</h1>
-                    </div>
-                </div>
+    <h1>Recetas Destacadas</h1>
 
-                <div class="destacado-bottom"></div>
+    <div class="recetas-grid">
+
+        @forelse($recipes as $recipe)
+        <div class="receta-tarjeta" data-id="{{ $recipe->id }}">
+
+            <div class="receta-image">
+                <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->title }}">
+                <div class="overlay"><span>VER</span></div>
+            </div>
+
+            <h3>{{ $recipe->title }}</h3>
+
+            <div class="receta-actions">
+                <div class="likes1">
+                    <i class="bi bi-heart-fill"></i>
+                    <div class="likes" id="likes-{{ $recipe->id }}">
+                        {{ $recipe->likes->count() }}
+                    </div>
+                </div>
 
 
             </div>
 
-            <div class="destacado" id="tartaespinaca">
-                <div class="overlay">
-                    <span>VER</span>
-                </div>
-                <div class="destacado-top">
-                    <div class="destacado-top-top">
-                        <div class="destacado-user">
-                            <i class="bi bi-person-circle"></i>
-                            <span class="username">monilo3</i></span>
-                        </div>
-                        <div class="opciones">
-                            <i class="bi bi-three-dots-vertical"></i>
-                        </div>
-                    </div>
-                    <div class="destacado-titulo">
-                        <h1>Tarta de espinaca y huevo</h1>
-                    </div>
-                </div>
+        </div>
 
-                <div class="destacado-bottom"></div>
-            </div>
+        @empty
+        <p class="no-recetas">Todavía no has creado ninguna receta.</p>
+        @endforelse
 
+    </div>
 
-            <div class="destacado" id="torrijas">
-                <div class="overlay">
-                    <span>VER</span>
-                </div>
-                <div class="destacado-top">
-                    <div class="destacado-top-top">
-                        <div class="destacado-user">
-                            <i class="bi bi-person-circle"></i>
-                            <span class="username">abuela_cocinera</span>
-                        </div>
-                        <div class="opciones">
-                            <i class="bi bi-three-dots-vertical"></i>
-                        </div>
-                    </div>
-                    <div class="destacado-titulo">
-                        <h1>Torrijas Caseras</h1>
-                    </div>
-                </div>
-
-                <div class="destacado-bottom"></div>
-            </div>
-
-
-            <div class="destacado" id="lentejasboniato">
-                <div class="overlay">
-                    <span>VER</span>
-                </div>
-                <div class="destacado-top">
-                    <div class="destacado-top-top">
-                        <div class="destacado-user">
-                            <i class="bi bi-person-circle"></i>
-                            <span class="username">karlosarguinano<i class="bi bi-patch-check-fill"></i></span>
-                        </div>
-                        <div class="opciones">
-                            <i class="bi bi-three-dots-vertical"></i>
-                        </div>
-                    </div>
-                    <div class="destacado-titulo">
-                        <h1>Lentejas con Boniato</h1>
-                    </div>
-                </div>
-
-                <div class="destacado-bottom"></div>
-            </div>
-
-
-            <div class="destacado" id="lentejasboniato">
-                <div class="overlay">
-                    <span>VER</span>
-                </div>
-                <div class="destacado-top">
-                    <div class="destacado-top-top">
-                        <div class="destacado-user">
-                            <i class="bi bi-person-circle"></i>
-                            <span class="username">karlosarguinano<i class="bi bi-patch-check-fill"></i></span>
-                        </div>
-                        <div class="opciones">
-                            <i class="bi bi-three-dots-vertical"></i>
-                        </div>
-                    </div>
-                    <div class="destacado-titulo">
-                        <h1>Lentejas con Boniato</h1>
-                    </div>
-                </div>
-
-                <div class="destacado-bottom"></div>
-            </div>
-
-
-            <div class="destacado" id="lentejasboniato">
-                <div class="overlay">
-                    <span>VER</span>
-                </div>
-                <div class="destacado-top">
-                    <div class="destacado-top-top">
-                        <div class="destacado-user">
-                            <i class="bi bi-person-circle"></i>
-                            <span class="username">karlosarguinano<i class="bi bi-patch-check-fill"></i></span>
-                        </div>
-                        <div class="opciones">
-                            <i class="bi bi-three-dots-vertical"></i>
-                        </div>
-                    </div>
-                    <div class="destacado-titulo">
-                        <h1>Lentejas con Boniato</h1>
-                    </div>
-                </div>
-
-                <div class="destacado-bottom"></div>
+    <div id="recipe-modal" class="modal-overlay" style="display:none;">
+        <div class="modal-content">
+            <button class="modal-close"></button>
+            <div id="modal-body">
+                <!-- Aquí se cargará la receta -->
             </div>
         </div>
     </div>
+
+
+
+</main>
+
+
+</html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const modal = document.getElementById('recipe-modal');
+        const modalBody = document.getElementById('modal-body');
+        const closeBtn = document.querySelector('.modal-close');
+
+        // Cerrar modal
+        closeBtn.addEventListener('click', () => {
+            cerrarModal();
+        });
+
+        // Cerrar modal al hacer clic fuera
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                cerrarModal();
+            }
+        });
+
+        // Función para cerrar con animación
+        function cerrarModal() {
+            modal.classList.remove('show');
+            const content = modal.querySelector('.modal-content');
+            content.classList.remove('show');
+
+            setTimeout(() => {
+                modal.style.display = 'none';
+                modalBody.innerHTML = '';
+            }, 250);
+        }
+
+        // Función reutilizable para abrir el modal dado un ID de receta
+        function abrirModal(recipeId) {
+            fetch(`/recipes/${recipeId}`)
+                .then(res => res.text())
+                .then(html => {
+                    modalBody.innerHTML = html;
+                    modal.style.display = 'flex';
+                    setTimeout(() => {
+                        modal.classList.add('show');
+                        modal.querySelector('.modal-content').classList.add('show');
+                    }, 10);
+                });
+        }
+
+        // Abrir modal desde el buscador del navbar
+        window.addEventListener('openRecipeModal', (e) => {
+            abrirModal(e.detail.id);
+        });
+
+        // Abrir modal al hacer click en una receta
+        document.querySelectorAll('.receta-tarjeta').forEach(card => {
+            card.addEventListener('click', () => {
+                abrirModal(card.dataset.id);
+            });
+        });
+
+    });
+
+    window.toggleLikeModal = function(recipeId) {
+        console.log('CLICK LIKE MODAL', recipeId);
+
+        fetch(`/recipes/${recipeId}/like`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+
+                // Contador del modal
+                const modalCount = document.getElementById(`modal-likes-count-${recipeId}`);
+                if (modalCount) {
+                    modalCount.innerText = data.count;
+                }
+
+                // Contador de la tarjeta
+                const cardLikes = document.getElementById(`likes-${recipeId}`);
+                if (cardLikes) {
+                    cardLikes.innerHTML = data.count;
+                }
+
+                // Corazón del modal
+                const btn = document.getElementById(`modal-like-btn-${recipeId}`);
+                if (btn) {
+                    btn.innerHTML = data.liked ? `<i class="bi bi-heart-fill" style="color: red;"></i>` :
+                        `<i class="bi bi-heart"></i>`;
+                }
+            });
+    }
+</script>
 
 @endsection

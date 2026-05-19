@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -78,8 +79,17 @@ class ProfileController extends Controller
 
     public function recipes()
     {
-        $recipes = auth()->user()->recipes; // relación hasMany
+        $recipes = auth()->user()->recipes;
         return view('profile.recipes', compact('recipes'));
+    }
+
+    /**
+     * Perfil público de cualquier usuario.
+     */
+    public function show(User $user)
+    {
+        $recipes = $user->recipes;
+        return view('profile.show', compact('user', 'recipes'));
     }
 
 }

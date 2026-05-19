@@ -106,27 +106,29 @@
                 }, 250);
             }
 
+            // Función reutilizable para abrir el modal dado un ID de receta
+            function abrirModal(recipeId) {
+                fetch(`/recipes/${recipeId}`)
+                    .then(res => res.text())
+                    .then(html => {
+                        modalBody.innerHTML = html;
+                        modal.style.display = 'flex';
+                        setTimeout(() => {
+                            modal.classList.add('show');
+                            modal.querySelector('.modal-content').classList.add('show');
+                        }, 10);
+                    });
+            }
+
+            // Abrir modal desde el buscador del navbar
+            window.addEventListener('openRecipeModal', (e) => {
+                abrirModal(e.detail.id);
+            });
+
             // Abrir modal al hacer click en una receta
             document.querySelectorAll('.receta-tarjeta').forEach(card => {
                 card.addEventListener('click', () => {
-                    const recipeId = card.dataset.id;
-
-                    fetch(`/recipes/${recipeId}`)
-                        .then(res => res.text())
-                        .then(html => {
-
-                            // Insertar contenido
-                            modalBody.innerHTML = html;
-
-                            // Mostrar modal
-                            modal.style.display = 'flex';
-
-                            // Animación suave
-                            setTimeout(() => {
-                                modal.classList.add('show');
-                                modal.querySelector('.modal-content').classList.add('show');
-                            }, 10);
-                        });
+                    abrirModal(card.dataset.id);
                 });
             });
 

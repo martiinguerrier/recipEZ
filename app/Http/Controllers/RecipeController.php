@@ -90,9 +90,6 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {
-        // Solo el dueño puede verla
-        abort_unless($recipe->user_id === auth()->id(), 403);
-
         return view('recipes.show-modal', compact('recipe'));
     }
 
