@@ -8,6 +8,39 @@ use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
+    /**
+     * Búsqueda completa con filtros → devuelve vista de resultados.
+     */
+    public function results(Request $request)
+    {
+        $q           = trim($request->input('q', ''));
+        $ingredients = array_filter((array) $request->input('ingredients', []));
+        $foodTypes   = array_filter((array) $request->input('food_types', []));
+        $diets       = array_filter((array) $request->input('diets', []));
+
+        $query = Recipe::query();
+
+        if ($q !== '') {
+            $query->where('title', 'LIKE', "%{$q}%");
+        }
+        if (!empty($ingredients)) {
+            $query->whereHas('ingredients', fn($q) => $q->whereIn('ingredients.id', $ingredients));
+        }
+        if (!empty($foodTypes)) {
+            $query->whereHas('foodType', fn($q) => $q->whereIn('food_types.id', $foodTypes));
+        }
+        if (!empty($diets)) {
+            $query->whereHas('diets', fn($q) => $q->whereIn('diets.id', $diets));
+        }
+
+        $recipes = $query->latest()->get();
+
+        return view('search.results', compact('recipes', 'q', 'ingredients', 'foodTypes', 'diets'));
+    }
+
+    /**
+     * Búsqueda rápida en tiempo real → devuelve JSON para el dropdown del navbar.
+     */
     public function search(Request $request)
     {
         $q = trim($request->input('q', ''));

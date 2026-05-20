@@ -1,3 +1,12 @@
+@php
+    $filterIngredients   = \App\Models\Ingredient::orderBy('name')->get();
+    $filterFoodTypes     = \App\Models\FoodType::orderBy('name')->get();
+    $filterDiets         = \App\Models\Diet::orderBy('name')->get();
+    $selectedIngredients = array_map('strval', (array) request()->input('ingredients', []));
+    $selectedFoodTypes   = array_map('strval', (array) request()->input('food_types', []));
+    $selectedDiets       = array_map('strval', (array) request()->input('diets', []));
+@endphp
+
 <div id="inicio"></div>
 <header class="navbar">
     <div class="nav-left">
@@ -12,12 +21,104 @@
 
     <div class="nav-center">
         <div class="search-wrapper">
-            <div class="search-container">
-                <input type="text" id="search-input" placeholder="Buscar recetas, usuarios . . ." class="search-input" autocomplete="off">
-                <i class="bi bi-search"></i>
-                <button class="filter-btn"><b>☰</b></button>
-            </div>
+
+            <form id="search-form" action="/explore" method="GET">
+                <div class="search-container">
+                    <input type="text" id="search-input" name="q"
+                        value="{{ request('q') }}"
+                        placeholder="Buscar recetas, usuarios . . ."
+                        class="search-input" autocomplete="off">
+
+                    {{-- Lupa = ejecuta búsqueda completa --}}
+                    <button type="submit" class="search-submit-btn" title="Buscar">
+                        <i class="bi bi-search"></i>
+                    </button>
+
+                    {{-- Botón de filtros --}}
+                    <button type="button" id="filter-toggle-btn" class="filter-btn" title="Filtros">
+                        <b>☰</b>
+                        <span id="filter-active-badge" class="filter-active-badge" style="display:none;"></span>
+                    </button>
+                </div>
+
+                {{-- ── Panel de filtros ─────────────────────────────── --}}
+                <div id="filter-panel" class="filter-panel" style="display:none;">
+
+                    {{-- Ingredientes --}}
+                    <div class="fp-accordion">
+                        <button type="button" class="fp-accordion-header" data-target="fp-ingredients">
+                            <span><i class="bi bi-basket2"></i> Ingredientes</span>
+                            <span class="fp-badge" id="badge-ingredients" style="display:none;"></span>
+                            <i class="bi bi-chevron-down fp-chevron"></i>
+                        </button>
+                        <div class="fp-accordion-body" id="fp-ingredients" style="display:none;">
+                            <input type="text" class="fp-search-input" placeholder="Buscar ingrediente...">
+                            <div class="fp-options-list">
+                                @foreach($filterIngredients as $item)
+                                    <label class="fp-option-item">
+                                        <span>{{ $item->name }}</span>
+                                        <input type="checkbox" name="ingredients[]" value="{{ $item->id }}"
+                                            @checked(in_array((string)$item->id, $selectedIngredients))>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Tipo de comida --}}
+                    <div class="fp-accordion">
+                        <button type="button" class="fp-accordion-header" data-target="fp-foodtypes">
+                            <span><i class="bi bi-egg-fried"></i> Tipo de comida</span>
+                            <span class="fp-badge" id="badge-foodtypes" style="display:none;"></span>
+                            <i class="bi bi-chevron-down fp-chevron"></i>
+                        </button>
+                        <div class="fp-accordion-body" id="fp-foodtypes" style="display:none;">
+                            <input type="text" class="fp-search-input" placeholder="Buscar tipo de comida...">
+                            <div class="fp-options-list">
+                                @foreach($filterFoodTypes as $item)
+                                    <label class="fp-option-item">
+                                        <span>{{ $item->name }}</span>
+                                        <input type="checkbox" name="food_types[]" value="{{ $item->id }}"
+                                            @checked(in_array((string)$item->id, $selectedFoodTypes))>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Dieta --}}
+                    <div class="fp-accordion">
+                        <button type="button" class="fp-accordion-header" data-target="fp-diets">
+                            <span><i class="bi bi-heart-pulse"></i> Dieta</span>
+                            <span class="fp-badge" id="badge-diets" style="display:none;"></span>
+                            <i class="bi bi-chevron-down fp-chevron"></i>
+                        </button>
+                        <div class="fp-accordion-body" id="fp-diets" style="display:none;">
+                            <input type="text" class="fp-search-input" placeholder="Buscar dieta...">
+                            <div class="fp-options-list">
+                                @foreach($filterDiets as $item)
+                                    <label class="fp-option-item">
+                                        <span>{{ $item->name }}</span>
+                                        <input type="checkbox" name="diets[]" value="{{ $item->id }}"
+                                            @checked(in_array((string)$item->id, $selectedDiets))>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Pie del panel --}}
+                    <div class="fp-footer">
+                        <button type="button" id="fp-clear-btn" class="fp-clear-btn">Limpiar filtros</button>
+                        <button type="submit" class="fp-apply-btn">Buscar <i class="bi bi-search"></i></button>
+                    </div>
+
+                </div>{{-- /filter-panel --}}
+            </form>
+
+            {{-- Dropdown tiempo real (fuera del form) --}}
             <div id="search-dropdown" class="search-dropdown" style="display:none;"></div>
+
         </div>
     </div>
 
@@ -48,26 +149,23 @@
 
     </div>
 
-
 </header>
 
 <script>
 (function () {
+
+    // ── Dropdown en tiempo real ──────────────────────────────────────────
     const input    = document.getElementById('search-input');
     const dropdown = document.getElementById('search-dropdown');
-    let timer;
+    let dropTimer;
 
     input.addEventListener('input', () => {
-        clearTimeout(timer);
+        clearTimeout(dropTimer);
         const q = input.value.trim();
 
-        if (q.length < 2) {
-            dropdown.style.display = 'none';
-            dropdown.innerHTML = '';
-            return;
-        }
+        if (q.length < 2) { cerrarDropdown(); return; }
 
-        timer = setTimeout(() => {
+        dropTimer = setTimeout(() => {
             fetch(`/search?q=${encodeURIComponent(q)}`)
                 .then(r => r.json())
                 .then(data => renderDropdown(data));
@@ -75,8 +173,9 @@
     });
 
     function renderDropdown(data) {
-        const noResults = data.recipes.length === 0 && data.users.length === 0;
+        cerrarFiltros();
 
+        const noResults = data.recipes.length === 0 && data.users.length === 0;
         if (noResults) {
             dropdown.innerHTML = '<div class="search-no-results">Sin resultados</div>';
             dropdown.style.display = 'block';
@@ -91,8 +190,7 @@
                 const img = r.image
                     ? `<img src="${r.image}" class="search-thumb" alt="${r.title}">`
                     : `<div class="search-thumb search-thumb-placeholder"><i class="bi bi-image"></i></div>`;
-                html += `
-                <div class="search-item" data-type="recipe" data-id="${r.id}">
+                html += `<div class="search-item" data-type="recipe" data-id="${r.id}">
                     ${img}
                     <div class="search-info">
                         <span class="search-name">${r.title}</span>
@@ -108,8 +206,7 @@
                 const img = u.avatar
                     ? `<img src="${u.avatar}" class="search-thumb search-thumb-round" alt="${u.name}">`
                     : `<div class="search-thumb search-thumb-placeholder search-thumb-round"><i class="bi bi-person"></i></div>`;
-                html += `
-                <div class="search-item" data-type="user" data-id="${u.id}">
+                html += `<div class="search-item" data-type="user" data-id="${u.id}">
                     ${img}
                     <div class="search-info">
                         <span class="search-name">${u.name}</span>
@@ -122,7 +219,6 @@
         dropdown.innerHTML = html;
         dropdown.style.display = 'block';
 
-        // Clic en receta → custom event para que la página abra el modal
         dropdown.querySelectorAll('.search-item[data-type="recipe"]').forEach(el => {
             el.addEventListener('click', () => {
                 window.dispatchEvent(new CustomEvent('openRecipeModal', { detail: { id: el.dataset.id } }));
@@ -130,7 +226,6 @@
             });
         });
 
-        // Clic en usuario → navegar a su perfil público
         dropdown.querySelectorAll('.search-item[data-type="user"]').forEach(el => {
             el.addEventListener('click', () => {
                 window.location.href = `/users/${el.dataset.id}`;
@@ -141,14 +236,102 @@
     function cerrarDropdown() {
         dropdown.style.display = 'none';
         dropdown.innerHTML = '';
-        input.value = '';
     }
 
-    // Cerrar al hacer clic fuera
-    document.addEventListener('click', e => {
-        if (!e.target.closest('.search-wrapper')) {
-            dropdown.style.display = 'none';
+    // ── Panel de filtros ─────────────────────────────────────────────────
+    const filterBtn   = document.getElementById('filter-toggle-btn');
+    const filterPanel = document.getElementById('filter-panel');
+
+    filterBtn.addEventListener('click', () => {
+        const isOpen = filterPanel.style.display !== 'none';
+        if (isOpen) {
+            cerrarFiltros();
+        } else {
+            cerrarDropdown();
+            filterPanel.style.display = 'block';
+            filterBtn.classList.add('fp-btn-active');
         }
     });
+
+    function cerrarFiltros() {
+        filterPanel.style.display = 'none';
+        filterBtn.classList.remove('fp-btn-active');
+    }
+
+    // Acordeón
+    document.querySelectorAll('.fp-accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const body   = document.getElementById(header.dataset.target);
+            const isOpen = body.style.display !== 'none';
+
+            // Cerrar todos
+            document.querySelectorAll('.fp-accordion-body').forEach(b => b.style.display = 'none');
+            document.querySelectorAll('.fp-chevron').forEach(c => c.classList.remove('fp-chevron-open'));
+
+            // Abrir el clicado si estaba cerrado
+            if (!isOpen) {
+                body.style.display = 'block';
+                header.querySelector('.fp-chevron').classList.add('fp-chevron-open');
+            }
+        });
+    });
+
+    // Buscador interno de cada sección
+    document.querySelectorAll('.fp-search-input').forEach(si => {
+        si.addEventListener('input', () => {
+            const term = si.value.toLowerCase();
+            si.nextElementSibling.querySelectorAll('.fp-option-item').forEach(item => {
+                const text = item.querySelector('span').textContent.toLowerCase();
+                item.style.display = text.includes(term) ? '' : 'none';
+            });
+        });
+    });
+
+    // Badges de conteo
+    function updateBadges() {
+        const sections = [
+            { selector: 'input[name="ingredients[]"]:checked', badgeId: 'badge-ingredients' },
+            { selector: 'input[name="food_types[]"]:checked',  badgeId: 'badge-foodtypes'   },
+            { selector: 'input[name="diets[]"]:checked',       badgeId: 'badge-diets'        },
+        ];
+
+        let total = 0;
+        sections.forEach(({ selector, badgeId }) => {
+            const count = document.querySelectorAll(selector).length;
+            const badge = document.getElementById(badgeId);
+            if (badge) {
+                badge.textContent = count;
+                badge.style.display = count > 0 ? 'inline-flex' : 'none';
+            }
+            total += count;
+        });
+
+        const activeBadge = document.getElementById('filter-active-badge');
+        if (activeBadge) {
+            activeBadge.textContent = total;
+            activeBadge.style.display = total > 0 ? 'inline-flex' : 'none';
+        }
+    }
+
+    document.querySelectorAll('#filter-panel input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', updateBadges);
+    });
+
+    document.getElementById('fp-clear-btn').addEventListener('click', () => {
+        document.querySelectorAll('#filter-panel input[type="checkbox"]').forEach(cb => cb.checked = false);
+        updateBadges();
+    });
+
+    // Inicializar badges (en la página de resultados los checkboxes ya vienen marcados)
+    updateBadges();
+
+    // Cerrar al hacer clic fuera del buscador
+    document.addEventListener('click', e => {
+        if (!e.target.closest('.search-wrapper')) {
+            cerrarDropdown();
+            cerrarFiltros();
+        }
+    });
+
 })();
 </script>

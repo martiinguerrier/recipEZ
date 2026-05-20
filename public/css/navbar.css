@@ -182,30 +182,238 @@ a:visited {
     background: transparent;
 }
 
-.nav-center i {
-    margin-top: 0.5%;
-    margin-right: 1%;
-    padding-right: 1%;
-    padding-top: 0.5%;
-    padding-bottom: 0.5%;
-    color: #979797;
-    border-right: #979797 solid 1px;
+/* Botón lupa (submit) */
+.search-submit-btn {
+    display: flex;
+    align-items: center;
+    border: none;
+    background: transparent;
     cursor: pointer;
+    padding: 4px 10px 4px 4px;
+    margin-right: 4px;
+    border-right: 1px solid #979797;
+    color: #979797;
+    font-size: 16px;
+    transition: color 0.2s;
 }
 
+.search-submit-btn:hover {
+    color: #ff8800;
+}
+
+/* Botón filtros */
 .filter-btn {
+    position: relative;
     border: none;
     background: #ff8800;
     color: white;
     padding: 8px 14px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 0px;
-    transition: 0.4s ease;
+    font-size: 16px;
+    transition: background 0.2s;
+    flex-shrink: 0;
 }
 
-.filter-btn:hover {
-    font-size: 18px;
+.filter-btn:hover,
+.filter-btn.fp-btn-active {
+    background: #e07500;
+}
+
+/* Badge de filtros activos en el botón ☰ */
+.filter-active-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #e74c3c;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+/* ── Panel de filtros ──────────────────────────────────── */
+.filter-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+    z-index: 200;
+    overflow: hidden;
+}
+
+/* Acordeón: cabecera */
+.fp-accordion-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 13px 16px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #f0e8df;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    transition: background 0.15s;
+    text-align: left;
+}
+
+.fp-accordion-header:hover {
+    background: #fff8f2;
+}
+
+.fp-accordion-header > span:first-child {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.fp-accordion-header i.bi-basket2,
+.fp-accordion-header i.bi-egg-fried,
+.fp-accordion-header i.bi-heart-pulse {
+    color: #ff8800;
+    font-size: 15px;
+}
+
+/* Chevron girado cuando está abierto */
+.fp-chevron {
+    transition: transform 0.2s;
+    color: #aaa;
+    font-size: 12px;
+}
+
+.fp-chevron.fp-chevron-open {
+    transform: rotate(180deg);
+}
+
+/* Badge de conteo por sección */
+.fp-badge {
+    background: #ff8800;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+}
+
+/* Acordeón: cuerpo */
+.fp-accordion-body {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0e8df;
+    background: #fdfaf7;
+}
+
+/* Buscador interno */
+.fp-search-input {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+    margin-bottom: 8px;
+    background: #fff;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.fp-search-input:focus {
+    border-color: #ff8800;
+}
+
+/* Lista de opciones */
+.fp-options-list {
+    max-height: 180px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.fp-option-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 6px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #333;
+    cursor: pointer;
+    transition: background 0.12s;
+}
+
+.fp-option-item:hover {
+    background: #fff0e0;
+}
+
+.fp-option-item input[type="checkbox"] {
+    accent-color: #ff8800;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* Pie del panel */
+.fp-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #fff;
+}
+
+.fp-clear-btn {
+    background: transparent;
+    border: 1px solid #ddd;
+    color: #888;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.fp-clear-btn:hover {
+    border-color: #aaa;
+    color: #555;
+}
+
+.fp-apply-btn {
+    background: #ff8800;
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s;
+}
+
+.fp-apply-btn:hover {
+    background: #e07500;
 }
 
 

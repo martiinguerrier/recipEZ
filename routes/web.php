@@ -49,8 +49,11 @@ Route::get('/recipes/{recipe}', [RecipeController::class, 'show'])->name('recipe
 // Perfil público de cualquier usuario
 Route::get('/users/{user}', [ProfileController::class, 'show'])->name('profile.show');
 
-// Buscador en tiempo real
+// Buscador en tiempo real (JSON para dropdown)
 Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+// Búsqueda completa con filtros (vista de resultados)
+Route::get('/explore', [SearchController::class, 'results'])->name('search.results');
 
 // Rutas de autenticación generadas por Breeze
 require __DIR__ . '/auth.php';
