@@ -35,11 +35,19 @@
                 <h3>{{ $recipe->title }}</h3>
 
                 <div class="receta-actions">
+                    <div class="card-author">
+                        <a href="/users/{{ $recipe->user_id }}" onclick="event.stopPropagation()">
+                            @if($recipe->user?->avatar)
+                                <img src="{{ asset('storage/' . $recipe->user->avatar) }}" class="card-author-avatar" alt="{{ $recipe->user->name }}">
+                            @else
+                                <i class="bi bi-person-circle"></i>
+                            @endif
+                            <span>{{ $recipe->user?->name }}</span>
+                        </a>
+                    </div>
                     <div class="likes1">
                         <i class="bi bi-heart-fill"></i>
-                        <div class="likes" id="likes-{{ $recipe->id }}">
-                            {{ $recipe->likes->count() }}
-                        </div>
+                        <span class="likes" id="likes-{{ $recipe->id }}">{{ $recipe->likes->count() }}</span>
                     </div>
                 </div>
 

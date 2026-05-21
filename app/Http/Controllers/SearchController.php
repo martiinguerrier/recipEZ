@@ -18,7 +18,7 @@ class SearchController extends Controller
         $foodTypes   = array_filter((array) $request->input('food_types', []));
         $diets       = array_filter((array) $request->input('diets', []));
 
-        $query = Recipe::query();
+        $query = Recipe::with('user');
 
         if ($q !== '') {
             $query->where('title', 'LIKE', "%{$q}%");
@@ -49,13 +49,30 @@ class SearchController extends Controller
             return response()->json(['recipes' => [], 'users' => []]);
         }
 
-        $recipes = Recipe::where('title', 'LIKE', "%{$q}%")
-            ->limit(3)
-            ->get(['id', 'title', 'image']);
+        if (str_starts_with($q, '@')) {
+            $term = substr($q, 1);
 
-        $users = User::where('name', 'LIKE', "%{$q}%")
-            ->limit(2)
-            ->get(['id', 'name', 'avatar']);
+            if (strlen($term) < 1) {
+                return response()->json(['recipes' => [], 'users' => []]);
+            }
+
+            $users = User::where('name', 'LIKE', "%{$term}%")
+                ->limit(5)
+                ->get(['id', 'name', 'avatar']);
+
+            return response()->json([
+                'recipes' => [],
+                'users'   => $users->map(fn($u) => [
+                    'id'     => $u->id,
+                    'name'   => $u->name,
+                    'avatar' => $u->avatar ? asset('storage/' . $u->avatar) : null,
+                ]),
+            ]);
+        }
+
+        $recipes = Recipe::where('title', 'LIKE', "%{$q}%")
+            ->limit(5)
+            ->get(['id', 'title', 'image']);
 
         return response()->json([
             'recipes' => $recipes->map(fn($r) => [
@@ -63,11 +80,7 @@ class SearchController extends Controller
                 'title' => $r->title,
                 'image' => $r->image ? asset('storage/' . $r->image) : null,
             ]),
-            'users' => $users->map(fn($u) => [
-                'id'     => $u->id,
-                'name'   => $u->name,
-                'avatar' => $u->avatar ? asset('storage/' . $u->avatar) : null,
-            ]),
+            'users' => [],
         ]);
     }
 }

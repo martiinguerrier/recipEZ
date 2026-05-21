@@ -210,14 +210,14 @@ a:visited {
     padding: 8px 14px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background 0.2s;
+    font-size: 0px;
+    transition: ease 0.2s;
     flex-shrink: 0;
 }
 
 .filter-btn:hover,
 .filter-btn.fp-btn-active {
-    background: #e07500;
+    font-size: 12px;
 }
 
 /* Badge de filtros activos en el botón ☰ */

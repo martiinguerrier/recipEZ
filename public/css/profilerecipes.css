@@ -115,6 +115,32 @@ main {
     opacity: 1;
 }
 
+.card-author a,
+.card-author a:visited {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #888;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.card-author a:hover {
+    color: #ff914d;
+}
+
+.card-author-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.card-author i {
+    font-size: 18px;
+    color: #ccc;
+}
+
 .receta-actions {
     display: flex;
     justify-content: space-between;
@@ -127,8 +153,10 @@ main {
     width: 20%;
 }
 
-.likes1{
-    width: 8%;
+.likes1 {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .modal-like-icon{
@@ -183,7 +211,8 @@ main {
     font-weight: 600;
 }
 
-.btn-small {
+.btn-small,
+.btn-small:visited {
     background: #ff914d;
     color: white;
     padding: 6px 10px;
@@ -195,6 +224,7 @@ main {
 
 .btn-small:hover {
     background: #ff7a26;
+    color: white;
 }
 
 .btn-danger-small {

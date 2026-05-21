@@ -43,9 +43,7 @@
 
                         <div class="likes1">
                             <i class="bi bi-heart-fill"></i>
-                            <div class="likes" id="likes-{{ $recipe->id }}">
-                                {{ $recipe->likes->count() }}
-                            </div>
+                            <span class="likes" id="likes-{{ $recipe->id }}">{{ $recipe->likes->count() }}</span>
                         </div>
 
 

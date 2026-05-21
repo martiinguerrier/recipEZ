@@ -26,7 +26,7 @@
                 <div class="search-container">
                     <input type="text" id="search-input" name="q"
                         value="{{ request('q') }}"
-                        placeholder="Buscar recetas, usuarios . . ."
+                        placeholder="Buscar recetas o @usuario . . ."
                         class="search-input" autocomplete="off">
 
                     {{-- Lupa = ejecuta búsqueda completa --}}
@@ -163,7 +163,11 @@
         clearTimeout(dropTimer);
         const q = input.value.trim();
 
+        // "@" solo o vacío → cerrar
         if (q.length < 2) { cerrarDropdown(); return; }
+
+        // "@x" necesita al menos 1 carácter tras la arroba
+        if (q.startsWith('@') && q.length < 2) { cerrarDropdown(); return; }
 
         dropTimer = setTimeout(() => {
             fetch(`/search?q=${encodeURIComponent(q)}`)
