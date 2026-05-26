@@ -1,69 +1,58 @@
-@extends('layouts.app')
+@extends('layouts.clean')
 
-@section('title', 'RecipEZ')
+@section('title', 'RecipEZ - Recetas guardadas')
 
 @section('content')
 
 <main class="profile-container">
 
-    <h1>Recetas Destacadas</h1>
+    <h1>Recetas Guardadas</h1>
 
     <div class="recetas-grid">
 
         @forelse($recipes as $recipe)
-        <div class="receta-tarjeta" data-id="{{ $recipe->id }}">
+            <div class="receta-tarjeta" data-id="{{ $recipe->id }}">
 
-            <div class="receta-image">
-                <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->title }}">
-                <div class="overlay"><span>VER</span></div>
-            </div>
-
-            <h3>{{ $recipe->title }}</h3>
-
-            <div class="receta-actions">
-                <div class="card-author">
-                    <a href="/users/{{ $recipe->user_id }}" onclick="event.stopPropagation()">
-                        @if($recipe->user?->avatar)
-                            <img src="{{ asset('storage/' . $recipe->user->avatar) }}" class="card-author-avatar" alt="{{ $recipe->user->name }}">
-                        @else
-                            <i class="bi bi-person-circle"></i>
-                        @endif
-                        <span>{{ $recipe->user?->name }}</span>
-                    </a>
+                <div class="receta-image">
+                    <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->title }}">
+                    <div class="overlay"><span>VER</span></div>
                 </div>
-                <div class="card-right-actions">
-                    <div class="likes1">
-                        <span id="card-like-{{ $recipe->id }}" class="card-like-btn"
-                              onclick="event.stopPropagation(); toggleLike({{ $recipe->id }})">
-                            @auth
+
+                <h3>{{ $recipe->title }}</h3>
+
+                <div class="receta-actions">
+                    <div class="card-author">
+                        <a href="/users/{{ $recipe->user_id }}" onclick="event.stopPropagation()">
+                            @if($recipe->user?->avatar)
+                                <img src="{{ asset('storage/' . $recipe->user->avatar) }}" class="card-author-avatar" alt="{{ $recipe->user->name }}">
+                            @else
+                                <i class="bi bi-person-circle"></i>
+                            @endif
+                            <span>{{ $recipe->user?->name }}</span>
+                        </a>
+                    </div>
+                    <div class="card-right-actions">
+                        <div class="likes1">
+                            <span id="card-like-{{ $recipe->id }}" class="card-like-btn"
+                                  onclick="event.stopPropagation(); toggleLike({{ $recipe->id }})">
                                 @if($recipe->likedBy(auth()->user()))
                                     <i class="bi bi-heart-fill" style="color:red;"></i>
                                 @else
                                     <i class="bi bi-heart"></i>
                                 @endif
-                            @else
-                                <i class="bi bi-heart"></i>
-                            @endauth
-                        </span>
-                        <span class="likes" id="likes-{{ $recipe->id }}">{{ $recipe->likes->count() }}</span>
-                    </div>
-                    @auth
-                    <span id="card-save-{{ $recipe->id }}" class="card-save-btn"
-                          onclick="event.stopPropagation(); toggleSave({{ $recipe->id }})">
-                        @if($recipe->savedBy(auth()->user()))
+                            </span>
+                            <span class="likes" id="likes-{{ $recipe->id }}">{{ $recipe->likes->count() }}</span>
+                        </div>
+                        <span id="card-save-{{ $recipe->id }}" class="card-save-btn"
+                              onclick="event.stopPropagation(); toggleSave({{ $recipe->id }})">
                             <i class="bi bi-bookmark-fill" style="color:#ff8800;"></i>
-                        @else
-                            <i class="bi bi-bookmark"></i>
-                        @endif
-                    </span>
-                    @endauth
+                        </span>
+                    </div>
                 </div>
+
             </div>
-
-        </div>
-
         @empty
-        <p class="no-recetas">Todavía no has creado ninguna receta.</p>
+            <p class="no-recetas">Todavía no has guardado ninguna receta.</p>
         @endforelse
 
     </div>
@@ -71,51 +60,31 @@
     <div id="recipe-modal" class="modal-overlay" style="display:none;">
         <div class="modal-content">
             <button class="modal-close"></button>
-            <div id="modal-body">
-                <!-- Aquí se cargará la receta -->
-            </div>
+            <div id="modal-body"></div>
         </div>
     </div>
 
-
-
 </main>
-
-
-</html>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-        const modal = document.getElementById('recipe-modal');
+        const modal     = document.getElementById('recipe-modal');
         const modalBody = document.getElementById('modal-body');
-        const closeBtn = document.querySelector('.modal-close');
+        const closeBtn  = document.querySelector('.modal-close');
 
-        // Cerrar modal
-        closeBtn.addEventListener('click', () => {
-            cerrarModal();
-        });
+        closeBtn.addEventListener('click', cerrarModal);
+        modal.addEventListener('click', e => { if (e.target === modal) cerrarModal(); });
 
-        // Cerrar modal al hacer clic fuera
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                cerrarModal();
-            }
-        });
-
-        // Función para cerrar con animación
         function cerrarModal() {
             modal.classList.remove('show');
-            const content = modal.querySelector('.modal-content');
-            content.classList.remove('show');
-
+            modal.querySelector('.modal-content').classList.remove('show');
             setTimeout(() => {
                 modal.style.display = 'none';
                 modalBody.innerHTML = '';
             }, 250);
         }
 
-        // Función reutilizable para abrir el modal dado un ID de receta
         function abrirModal(recipeId) {
             fetch(`/recipes/${recipeId}`)
                 .then(res => res.text())
@@ -129,16 +98,10 @@
                 });
         }
 
-        // Abrir modal desde el buscador del navbar
-        window.addEventListener('openRecipeModal', (e) => {
-            abrirModal(e.detail.id);
-        });
+        window.addEventListener('openRecipeModal', e => abrirModal(e.detail.id));
 
-        // Abrir modal al hacer click en una receta
         document.querySelectorAll('.receta-tarjeta').forEach(card => {
-            card.addEventListener('click', () => {
-                abrirModal(card.dataset.id);
-            });
+            card.addEventListener('click', () => abrirModal(card.dataset.id));
         });
 
     });

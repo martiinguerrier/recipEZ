@@ -1,137 +1,33 @@
-/* Centrar modal en pantalla */
+/* ── OVERLAY ─────────────────────────────────────────────────────────── */
 .modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.55);
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 999;
-}
-
-/* Caja del modal */
-.modal-content {
-    background: white;
-    width: 80%;
-    max-width: 95%;
-    border-radius: 14px;
-    padding: 20px;
-    display: flex;
-    position: relative;
-    gap: 20px;
-}
-
-#modal-body{
-    width: 100%;
-}
-
-/* Botón cerrar */
-.modal-close {
-    visibility: hidden;
-    position: absolute;
-}
-
-/* Layout interno */
-.modal-recipe-layout {
-    display: flex;
-    gap: 25px;
-}
-
-/* Imagen izquierda */
-.modal-left {
-    flex: 0 0 500px;
-}
-
-.modal-image {
-    width: 550px;
-    height: 400px;
-    object-fit: cover;
-    border-radius: 12px;
-}
-
-/* Contenido derecha */
-.modal-right-wrapper {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-}
-
-.modal-right {
-    flex: 1;
-    overflow-y: auto;
-    max-height: 330px;
-}
-
-.modal-author {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #888;
-    text-decoration: none;
-    font-size: 14px;
-    margin-bottom: 6px;
-}
-
-.modal-author:hover {
-    color: #ff914d;
-}
-
-.modal-author-avatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #eee;
-}
-
-.modal-author-icon {
-    font-size: 26px;
-    color: #ccc;
-}
-
-.modal-footer {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 0 2px;
-    border-top: 1px solid #f0f0f0;
-    margin-top: 8px;
-}
-
-.modal-title {
-    font-size: 1.8rem;
-    margin-top: 4px;
-    margin-bottom: 18px;
-}
-
-.modal-section {
-    margin-bottom: 20px;
-}
-
-.modal-ingredients {
-    padding-left: 20px;
-    line-height: 1.6;
-}
-
-.modal-description {
-    white-space: pre-line;
-    line-height: 1.6;
-}
-
-.modal-overlay {
     opacity: 0;
     transition: opacity 0.25s ease;
 }
 
-.modal-overlay.show {
-    opacity: 1;
-}
+.modal-overlay.show { opacity: 1; }
 
+/* ── CAJA MODAL ──────────────────────────────────────────────────────── */
 .modal-content {
+    background: #fffdf9;
+    width: 960px;
+    max-width: 95vw;
+    max-height: 88vh;
+    border-radius: 20px;
+    padding: 0;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.22),
+                0 0 0 1px rgba(255, 145, 77, 0.15);
     transform: scale(0.95);
     opacity: 0;
     transition: transform 0.25s ease, opacity 0.25s ease;
@@ -142,20 +38,241 @@
     opacity: 1;
 }
 
+#modal-body { width: 100%; }
 
-.modal-like-icon {
-    font-size: 28px;
+/* ── BOTÓN CERRAR ────────────────────────────────────────────────────── */
+.modal-close {
+    visibility: visible;
+    position: absolute;
+    top: 14px; right: 14px;
+    z-index: 10;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, transform 0.15s ease;
+    padding: 0;
+}
+
+.modal-close::after {
+    content: '✕';
+    font-size: 13px;
+    font-weight: 700;
+    color: #666;
+    line-height: 1;
+    transition: color 0.15s;
+}
+
+.modal-close:hover {
+    background: #ff914d;
+    transform: scale(1.08);
+}
+
+.modal-close:hover::after { color: white; }
+
+/* ── LAYOUT INTERNO ──────────────────────────────────────────────────── */
+.modal-recipe-layout {
+    display: flex;
+    width: 100%;
+    min-height: 0;
+}
+
+/* ── IMAGEN IZQUIERDA ────────────────────────────────────────────────── */
+.modal-left {
+    flex: 0 0 420px;
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-image {
+    width: 100%;
+    height: 100%;
+    min-height: 420px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.modal-left:hover .modal-image {
+    transform: scale(1.03);
+}
+
+/* ── CONTENIDO DERECHO ───────────────────────────────────────────────── */
+.modal-right-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 28px 20px 28px;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.modal-right {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: #ffcba4 transparent;
+}
+
+.modal-right::-webkit-scrollbar { width: 5px; }
+.modal-right::-webkit-scrollbar-thumb {
+    background: #ffcba4;
+    border-radius: 4px;
+}
+.modal-right::-webkit-scrollbar-track { background: transparent; }
+
+/* ── AUTOR ───────────────────────────────────────────────────────────── */
+.modal-author {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #aaa;
+    text-decoration: none;
+    font-size: 13px;
+    margin-bottom: 8px;
+    transition: color 0.15s;
+}
+
+.modal-author:hover { color: #ff914d; }
+.modal-author:visited { color: #aaa; }
+.modal-author:visited:hover { color: #ff914d; }
+
+.modal-author-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ffe0c8;
+}
+
+.modal-author-icon {
+    font-size: 24px;
+    color: #ccc;
+}
+
+/* ── TÍTULO ──────────────────────────────────────────────────────────── */
+.modal-title {
+    font-size: 1.75rem;
+    color: #222;
+    margin: 0 0 12px;
+    line-height: 1.2;
+}
+
+/* ── TAGS (tipo de comida + dietas) ──────────────────────────────────── */
+.modal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 18px;
+}
+
+.modal-tag {
+    font-size: 12px;
+    padding: 3px 11px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.modal-tag-food {
+    background: #fff0e0;
+    color: #cc5500;
+    border: 1px solid #ffd4a8;
+}
+
+.modal-tag-diet {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+}
+
+/* ── SECCIONES ───────────────────────────────────────────────────────── */
+.modal-section {
+    margin-bottom: 22px;
+}
+
+.modal-section h3 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #ff8800;
+    margin: 0 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.modal-section h3::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 13px;
+    background: #ff8800;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+/* ── INGREDIENTES (chips) ────────────────────────────────────────────── */
+.modal-ingredients {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.modal-ingredients li {
+    background: #fff4ec;
+    border: 1px solid #ffd4b0;
+    color: #b34700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* ── DESCRIPCIÓN ─────────────────────────────────────────────────────── */
+.modal-description {
+    white-space: pre-line;
+    line-height: 1.75;
+    color: #444;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* ── FOOTER ──────────────────────────────────────────────────────────── */
+.modal-footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 0 0;
+    border-top: 1px solid #f0e8df;
+    margin-top: 10px;
+}
+
+.modal-like-icon,
+.modal-save-icon {
+    font-size: 26px;
     cursor: pointer;
     user-select: none;
     transition: transform 0.15s ease;
+    color: #bbb;
+    line-height: 1;
 }
 
-.modal-like-icon:hover {
-    transform: scale(1.15);
-}
+.modal-like-icon:hover,
+.modal-save-icon:hover { transform: scale(1.18); }
 
 .modal-likes-count {
-    font-size: 18px;
-    color: #555;
+    font-size: 16px;
+    color: #888;
+    min-width: 20px;
 }
 
+.modal-save-icon { margin-left: 4px; }

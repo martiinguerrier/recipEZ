@@ -83,11 +83,22 @@ class ProfileController extends Controller
         return view('profile.recipes', compact('recipes'));
     }
 
+    public function saved()
+    {
+        $recipes = auth()->user()->savedRecipes()->with('user', 'likes')->latest('recipe_saves.created_at')->get();
+        return view('profile.saved', compact('recipes'));
+    }
+
     /**
      * Perfil público de cualquier usuario.
      */
     public function show(User $user)
     {
+        // Si el usuario autenticado visita su propio perfil, redirigir a su gestión de recetas
+        if (auth()->check() && auth()->id() === $user->id) {
+            return redirect()->route('profile.recipes');
+        }
+
         $recipes = $user->recipes;
         return view('profile.show', compact('user', 'recipes'));
     }

@@ -3,11 +3,13 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\RecipeLikeController;
+use App\Http\Controllers\RecipeSaveController;
 
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\AdminCatalogController;
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
 
@@ -17,10 +19,13 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Panel admin (solo usuarios autenticados)
-Route::get('/admin/indexadmin', function () {
-    return view('admin.indexadmin');
-})->middleware('auth')->name('admin.index');
+// Panel admin (solo administradores)
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/indexadmin', fn() => view('admin.indexadmin'))->name('admin.index');
+    Route::get('/catalog', [AdminCatalogController::class, 'index'])->name('admin.catalog');
+    Route::post('/catalog/{type}', [AdminCatalogController::class, 'store'])->name('admin.catalog.store');
+Route::delete('/catalog/{type}/{id}', [AdminCatalogController::class, 'destroy'])->name('admin.catalog.destroy');
+});
 
 // Rutas protegidas
 Route::middleware('auth')->group(function () {
@@ -37,10 +42,12 @@ Route::middleware('auth')->group(function () {
     // CRUD de recetas (excepto show, que es público)
     Route::resource('recipes', RecipeController::class)->except(['show']);
 
-    //Likes
-    Route::post('/recipes/{id}/like', [RecipeLikeController::class, 'toggle'])
-        ->middleware('auth')
-        ->name('recipes.like');
+    // Likes
+    Route::post('/recipes/{id}/like', [RecipeLikeController::class, 'toggle'])->name('recipes.like');
+
+    // Guardados
+    Route::post('/recipes/{id}/save', [RecipeSaveController::class, 'toggle'])->name('recipes.save');
+    Route::get('/profile/saved', [ProfileController::class, 'saved'])->name('profile.saved');
 });
 
 // Ruta pública para ver el modal de una receta

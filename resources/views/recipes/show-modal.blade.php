@@ -24,6 +24,18 @@
 
             <h2 class="modal-title">{{ $recipe->title }}</h2>
 
+            {{-- Tags: tipo de comida + dietas --}}
+            @if($recipe->foodType->count() || $recipe->diets->count())
+            <div class="modal-tags">
+                @foreach($recipe->foodType as $ft)
+                    <span class="modal-tag modal-tag-food">{{ $ft->name }}</span>
+                @endforeach
+                @foreach($recipe->diets as $diet)
+                    <span class="modal-tag modal-tag-diet">{{ $diet->name }}</span>
+                @endforeach
+            </div>
+            @endif
+
             {{-- Ingredientes --}}
             <div class="modal-section">
                 <h3>Ingredientes</h3>
@@ -42,7 +54,7 @@
 
         </div>
 
-        {{-- Like button al fondo --}}
+        {{-- Footer: like + guardar --}}
         <div class="modal-footer">
             <span id="modal-like-btn-{{ $recipe->id }}" class="modal-like-icon"
                 onclick="toggleLikeModal({{ $recipe->id }})">
@@ -55,6 +67,17 @@
             <span id="modal-likes-count-{{ $recipe->id }}" class="modal-likes-count">
                 {{ $recipe->likes->count() }}
             </span>
+
+            @auth
+            <span id="modal-save-btn-{{ $recipe->id }}" class="modal-save-icon"
+                onclick="toggleSaveModal({{ $recipe->id }})">
+                @if($recipe->savedBy(auth()->user()))
+                    <i class="bi bi-bookmark-fill" style="color:#ff8800;"></i>
+                @else
+                    <i class="bi bi-bookmark"></i>
+                @endif
+            </span>
+            @endauth
         </div>
 
     </div>

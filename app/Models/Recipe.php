@@ -43,5 +43,15 @@ class Recipe extends Model
         return $this->likes()->where('user_id', $user->id)->exists();
     }
 
+    public function saves()
+    {
+        return $this->hasMany(RecipeSave::class);
+    }
+
+    public function savedBy(User $user)
+    {
+        return $this->saves()->where('user_id', $user->id)->exists();
+    }
+
 }
 

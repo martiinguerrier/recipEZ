@@ -18,6 +18,17 @@ class SearchController extends Controller
         $foodTypes   = array_filter((array) $request->input('food_types', []));
         $diets       = array_filter((array) $request->input('diets', []));
 
+        // Búsqueda de usuarios con @
+        if (str_starts_with($q, '@')) {
+            $term  = substr($q, 1);
+            $users = $term !== ''
+                ? User::where('name', 'LIKE', "%{$term}%")->latest()->get()
+                : collect();
+
+            return view('search.results', compact('q', 'users', 'ingredients', 'foodTypes', 'diets'))
+                ->with('recipes', collect());
+        }
+
         $query = Recipe::with('user');
 
         if ($q !== '') {
@@ -34,8 +45,9 @@ class SearchController extends Controller
         }
 
         $recipes = $query->latest()->get();
+        $users   = collect();
 
-        return view('search.results', compact('recipes', 'q', 'ingredients', 'foodTypes', 'diets'));
+        return view('search.results', compact('recipes', 'users', 'q', 'ingredients', 'foodTypes', 'diets'));
     }
 
     /**

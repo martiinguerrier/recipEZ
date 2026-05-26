@@ -36,7 +36,7 @@
 
                     {{-- Botón de filtros --}}
                     <button type="button" id="filter-toggle-btn" class="filter-btn" title="Filtros">
-                        <b>☰</b>
+                        <i class="bi bi-filter"></i>
                         <span id="filter-active-badge" class="filter-active-badge" style="display:none;"></span>
                     </button>
                 </div>
@@ -125,19 +125,47 @@
     <div class="nav-right">
 
         @auth
-            <div class="profile-icon">
-                <a href="{{ route('profile.recipes') }}">
-                    @if(auth()->user()->avatar)
-                        <img src="{{ asset('storage/' . auth()->user()->avatar) }}" class="avatar-small">
-                    @else
-                        <i class="bi bi-person-circle"></i>
+            <div class="nav-right-top" id="user-menu-wrapper">
+                <div class="profile-icon">
+                    <a href="{{ route('profile.recipes') }}">
+                        @if(auth()->user()->avatar)
+                            <img src="{{ asset('storage/' . auth()->user()->avatar) }}" class="avatar-small">
+                        @else
+                            <i class="bi bi-person-circle"></i>
+                        @endif
+                    </a>
+                </div>
+
+                <button class="user-menu-btn" id="user-menu-btn" title="Menú">
+                    <b>☰</b>
+                </button>
+
+                <div class="user-dropdown" id="user-dropdown">
+                    <div class="user-dropdown-label">Mi cuenta</div>
+                    <a href="{{ route('profile.edit') }}" class="user-dropdown-item">
+                        <i class="bi bi-gear"></i> Ajustes de perfil
+                    </a>
+                    <a href="{{ route('profile.saved') }}" class="user-dropdown-item">
+                        <i class="bi bi-bookmark"></i> Recetas guardadas
+                    </a>
+                    <form class="user-dropdown-item" method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="user-dropdown-item user-dropdown-logout">
+                            <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                        </button>
+                    </form>
+
+                    @if(auth()->user()->isAdmin())
+                        <div class="user-dropdown-divider"></div>
+                        <div class="user-dropdown-label">Administración</div>
+                        <a href="{{ route('admin.catalog') }}" class="user-dropdown-item">
+                            <i class="bi bi-tags"></i> Gestionar catálogo
+                        </a>
                     @endif
-                </a>
+                </div>
             </div>
 
             <a href="{{ route('profile.recipes') }}"><span>{{ auth()->user()->name }}</span></a>
-
-            <a href="{{ route('profile.edit') }}" class="btn-secondary">AJUSTES DE PERFIL</a>
         @endauth
 
         @guest
@@ -336,6 +364,26 @@
             cerrarFiltros();
         }
     });
+
+    // ── Menú de usuario ──────────────────────────────────────────────────
+    const userMenuBtn  = document.getElementById('user-menu-btn');
+    const userDropdown = document.getElementById('user-dropdown');
+
+    if (userMenuBtn && userDropdown) {
+        userMenuBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            const open = userDropdown.classList.contains('open');
+            userDropdown.classList.toggle('open', !open);
+            userMenuBtn.classList.toggle('open', !open);
+        });
+
+        document.addEventListener('click', e => {
+            if (!e.target.closest('#user-menu-wrapper')) {
+                userDropdown.classList.remove('open');
+                userMenuBtn.classList.remove('open');
+            }
+        });
+    }
 
 })();
 </script>

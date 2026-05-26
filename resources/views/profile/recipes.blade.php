@@ -41,11 +41,27 @@
                             </form>
                         </div>
 
-                        <div class="likes1">
-                            <i class="bi bi-heart-fill"></i>
-                            <span class="likes" id="likes-{{ $recipe->id }}">{{ $recipe->likes->count() }}</span>
+                        <div class="card-right-actions">
+                            <div class="likes1">
+                                <span id="card-like-{{ $recipe->id }}" class="card-like-btn"
+                                      onclick="event.stopPropagation(); toggleLike({{ $recipe->id }})">
+                                    @if($recipe->likedBy(auth()->user()))
+                                        <i class="bi bi-heart-fill" style="color:red;"></i>
+                                    @else
+                                        <i class="bi bi-heart"></i>
+                                    @endif
+                                </span>
+                                <span class="likes" id="likes-{{ $recipe->id }}">{{ $recipe->likes->count() }}</span>
+                            </div>
+                            <span id="card-save-{{ $recipe->id }}" class="card-save-btn"
+                                  onclick="event.stopPropagation(); toggleSave({{ $recipe->id }})">
+                                @if($recipe->savedBy(auth()->user()))
+                                    <i class="bi bi-bookmark-fill" style="color:#ff8800;"></i>
+                                @else
+                                    <i class="bi bi-bookmark"></i>
+                                @endif
+                            </span>
                         </div>
-
 
                     </div>
 
@@ -123,47 +139,54 @@
                 abrirModal(e.detail.id);
             });
 
-            // Abrir modal al hacer click en una receta
+            // Abrir modal solo al hacer click en la imagen
             document.querySelectorAll('.receta-tarjeta').forEach(card => {
-                card.addEventListener('click', () => {
+                card.querySelector('.receta-image').addEventListener('click', () => {
                     abrirModal(card.dataset.id);
                 });
             });
 
         });
 
-        window.toggleLikeModal = function (recipeId) {
-            console.log('CLICK LIKE MODAL', recipeId);
+        window.toggleSave = function(recipeId) {
+            fetch(`/recipes/${recipeId}/save`, {
+                method: 'POST',
+                headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content }
+            })
+            .then(res => res.json())
+            .then(data => {
+                const icon = data.saved
+                    ? `<i class="bi bi-bookmark-fill" style="color:#ff8800;"></i>`
+                    : `<i class="bi bi-bookmark"></i>`;
+                const cardBtn = document.getElementById(`card-save-${recipeId}`);
+                if (cardBtn) cardBtn.innerHTML = icon;
+                const modalBtn = document.getElementById(`modal-save-btn-${recipeId}`);
+                if (modalBtn) modalBtn.innerHTML = icon;
+            });
+        }
+        window.toggleSaveModal = window.toggleSave;
 
+        window.toggleLike = function(recipeId) {
             fetch(`/recipes/${recipeId}/like`, {
                 method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                }
+                headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content }
             })
-                .then(res => res.json())
-                .then(data => {
-
-                    // Contador del modal
-                    const modalCount = document.getElementById(`modal-likes-count-${recipeId}`);
-                    if (modalCount) {
-                        modalCount.innerText = data.count;
-                    }
-
-                    // Contador de la tarjeta
-                    const cardLikes = document.getElementById(`likes-${recipeId}`);
-                    if (cardLikes) {
-                        cardLikes.innerHTML = data.count;
-                    }
-
-                    // Corazón del modal
-                    const btn = document.getElementById(`modal-like-btn-${recipeId}`);
-                    if (btn) {
-                        btn.innerHTML = data.liked ? `<i class="bi bi-heart-fill" style="color: red;"></i>`
-                            : `<i class="bi bi-heart"></i>`;
-                    }
-                });
+            .then(res => res.json())
+            .then(data => {
+                const heartIcon = data.liked
+                    ? `<i class="bi bi-heart-fill" style="color:red;"></i>`
+                    : `<i class="bi bi-heart"></i>`;
+                const cardBtn = document.getElementById(`card-like-${recipeId}`);
+                if (cardBtn) cardBtn.innerHTML = heartIcon;
+                const cardCount = document.getElementById(`likes-${recipeId}`);
+                if (cardCount) cardCount.innerHTML = data.count;
+                const modalBtn = document.getElementById(`modal-like-btn-${recipeId}`);
+                if (modalBtn) modalBtn.innerHTML = heartIcon;
+                const modalCount = document.getElementById(`modal-likes-count-${recipeId}`);
+                if (modalCount) modalCount.innerText = data.count;
+            });
         }
+        window.toggleLikeModal = window.toggleLike;
 
 
 

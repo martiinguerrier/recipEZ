@@ -1,0 +1,177 @@
+/* ── Contenedor principal ──────────────────────────────── */
+.admin-catalog-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border: #ff8800 2px solid;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.admin-catalog-container h1 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    color: #ff8800;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ── Flash ─────────────────────────────────────────────── */
+.admin-flash {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-bottom: 24px;
+    font-size: 14px;
+}
+
+.admin-flash.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.admin-flash.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* ── Tres columnas (igual que .selects en forms.css) ───── */
+.catalog-selects {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.catalog-selects .form-group {
+    width: 31%;
+    flex-shrink: 0;
+}
+
+/* Label con badge de conteo */
+.label-badge {
+    background: #ff8800;
+    color: #fff;
+    font-size: 11px;
+    padding: 1px 8px;
+    border-radius: 12px;
+    font-weight: 700;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+/* ── Ítems del catálogo (extiende .option-item) ────────── */
+.admin-catalog-container .option-item {
+    width: 100%;
+    margin-bottom: 0;
+    padding: 4px 2px;
+    border-radius: 6px;
+    transition: background 0.12s;
+}
+
+.admin-catalog-container .option-item:hover {
+    background: #fff8f2;
+}
+
+.item-actions {
+    flex-shrink: 0;
+}
+
+/* Botón eliminar */
+.btn-icon-sm {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 4px 6px;
+    border-radius: 6px;
+    color: #bbb;
+    display: flex;
+    align-items: center;
+    transition: background 0.15s, color 0.15s;
+    line-height: 1;
+}
+
+.btn-icon-sm.del:hover { background: #fde8e8; color: #e53e3e; }
+
+/* Separador entre ítems */
+.catalog-item-wrapper {
+    border-bottom: 1px solid #f9f5f0;
+}
+
+.catalog-item-wrapper:last-child {
+    border-bottom: none;
+}
+
+/* Mensaje vacío */
+.catalog-empty {
+    padding: 16px 4px;
+    text-align: center;
+    color: #bbb;
+    font-size: 13px;
+    font-style: italic;
+}
+
+/* ── Formulario de añadir ─────────────────────────────── */
+.add-item-form {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.add-item-form input[type="text"] {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-family: 'Germagont', sans-serif;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    min-width: 0;
+}
+
+.add-item-form input[type="text"]:focus {
+    border-color: #ff8800;
+    box-shadow: 0 0 0 3px rgba(255, 136, 0, 0.2);
+}
+
+.btn-add-item {
+    background: #ff8800;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: 'Germagont', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.btn-add-item:hover {
+    background: #e07500;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 900px) {
+    .catalog-selects {
+        flex-direction: column;
+    }
+    .catalog-selects .form-group {
+        width: 100%;
+    }
+}

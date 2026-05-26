@@ -33,11 +33,46 @@
                 <h3>{{ $recipe->title }}</h3>
 
                 <div class="receta-actions">
-                    <div class="likes1">
-                        <i class="bi bi-heart-fill"></i>
-                        <div class="likes" id="likes-{{ $recipe->id }}">
-                            {{ $recipe->likes->count() }}
+                    @if(auth()->user()?->isAdmin())
+                    <div class="delEdit">
+                        <a href="{{ route('recipes.edit', $recipe->id) }}" class="btn-small"
+                           onclick="event.stopPropagation()">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <form action="{{ route('recipes.destroy', $recipe->id) }}" method="POST"
+                              onclick="event.stopPropagation()">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn-danger-small"><i class="bi bi-trash3"></i></button>
+                        </form>
+                    </div>
+                    @endif
+                    <div class="card-right-actions">
+                        <div class="likes1">
+                            <span id="card-like-{{ $recipe->id }}" class="card-like-btn"
+                                  onclick="event.stopPropagation(); toggleLike({{ $recipe->id }})">
+                                @auth
+                                    @if($recipe->likedBy(auth()->user()))
+                                        <i class="bi bi-heart-fill" style="color:red;"></i>
+                                    @else
+                                        <i class="bi bi-heart"></i>
+                                    @endif
+                                @else
+                                    <i class="bi bi-heart"></i>
+                                @endauth
+                            </span>
+                            <span class="likes" id="likes-{{ $recipe->id }}">{{ $recipe->likes->count() }}</span>
                         </div>
+                        @auth
+                        <span id="card-save-{{ $recipe->id }}" class="card-save-btn"
+                              onclick="event.stopPropagation(); toggleSave({{ $recipe->id }})">
+                            @if($recipe->savedBy(auth()->user()))
+                                <i class="bi bi-bookmark-fill" style="color:#ff8800;"></i>
+                            @else
+                                <i class="bi bi-bookmark"></i>
+                            @endif
+                        </span>
+                        @endauth
                     </div>
                 </div>
 
@@ -100,33 +135,53 @@
 
     });
 
-    window.toggleLikeModal = function (recipeId) {
+    window.toggleSave = function(recipeId) {
         @auth
-        fetch(`/recipes/${recipeId}/like`, {
+        fetch(`/recipes/${recipeId}/save`, {
             method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            }
+            headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content }
         })
         .then(res => res.json())
         .then(data => {
-            const modalCount = document.getElementById(`modal-likes-count-${recipeId}`);
-            if (modalCount) modalCount.innerText = data.count;
-
-            const cardLikes = document.getElementById(`likes-${recipeId}`);
-            if (cardLikes) cardLikes.innerHTML = data.count;
-
-            const btn = document.getElementById(`modal-like-btn-${recipeId}`);
-            if (btn) {
-                btn.innerHTML = data.liked
-                    ? `<i class="bi bi-heart-fill" style="color: red;"></i>`
-                    : `<i class="bi bi-heart"></i>`;
-            }
+            const icon = data.saved
+                ? `<i class="bi bi-bookmark-fill" style="color:#ff8800;"></i>`
+                : `<i class="bi bi-bookmark"></i>`;
+            const cardBtn = document.getElementById(`card-save-${recipeId}`);
+            if (cardBtn) cardBtn.innerHTML = icon;
+            const modalBtn = document.getElementById(`modal-save-btn-${recipeId}`);
+            if (modalBtn) modalBtn.innerHTML = icon;
         });
         @else
         window.location.href = '/login';
         @endauth
     }
+    window.toggleSaveModal = window.toggleSave;
+
+    window.toggleLike = function(recipeId) {
+        @auth
+        fetch(`/recipes/${recipeId}/like`, {
+            method: 'POST',
+            headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content }
+        })
+        .then(res => res.json())
+        .then(data => {
+            const heartIcon = data.liked
+                ? `<i class="bi bi-heart-fill" style="color:red;"></i>`
+                : `<i class="bi bi-heart"></i>`;
+            const cardBtn = document.getElementById(`card-like-${recipeId}`);
+            if (cardBtn) cardBtn.innerHTML = heartIcon;
+            const cardCount = document.getElementById(`likes-${recipeId}`);
+            if (cardCount) cardCount.innerHTML = data.count;
+            const modalBtn = document.getElementById(`modal-like-btn-${recipeId}`);
+            if (modalBtn) modalBtn.innerHTML = heartIcon;
+            const modalCount = document.getElementById(`modal-likes-count-${recipeId}`);
+            if (modalCount) modalCount.innerText = data.count;
+        });
+        @else
+        window.location.href = '/login';
+        @endauth
+    }
+    window.toggleLikeModal = window.toggleLike;
 </script>
 
 @endsection

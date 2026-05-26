@@ -98,7 +98,7 @@ class RecipeController extends Controller
      */
     public function edit(Recipe $recipe)
     {
-        abort_unless($recipe->user_id === auth()->id(), 403);
+        abort_unless($recipe->user_id === auth()->id() || auth()->user()?->isAdmin(), 403);
 
         $ingredients = Ingredient::all();
         $foodTypes = FoodType::all();
@@ -142,7 +142,7 @@ class RecipeController extends Controller
         $recipe->diets()->sync($validated['diets'] ?? []);
 
 
-        return redirect()->route('profile.recipes')
+        return redirect()->route('profile.show', $recipe->user_id)
             ->with('success', 'Receta actualizada correctamente');
     }
 
@@ -152,11 +152,12 @@ class RecipeController extends Controller
      */
     public function destroy(Recipe $recipe)
     {
-        abort_unless($recipe->user_id === auth()->id(), 403);
+        abort_unless($recipe->user_id === auth()->id() || auth()->user()?->isAdmin(), 403);
 
+        $ownerId = $recipe->user_id;
         $recipe->delete();
 
-        return redirect()->route('profile.recipes')
+        return redirect()->route('profile.show', $ownerId)
             ->with('status', 'Receta eliminada correctamente.');
     }
 }

@@ -9,10 +9,7 @@ class IndexController extends Controller
 {
     public function index()
     {
-        // Obtener usuario admin
-        $admin = User::where('name', 'admin')->firstOrFail();
-
-        // Obtener sus recetas
+        $admin = User::where('is_admin', true)->firstOrFail();
         $recipes = $admin->recipes()->with('user')->latest()->get();
 
         return view('index', compact('recipes'));
