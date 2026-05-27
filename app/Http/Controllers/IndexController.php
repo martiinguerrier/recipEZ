@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Recipe;
 
 class IndexController extends Controller
 {
     public function index()
     {
-        $admin = User::where('is_admin', true)->firstOrFail();
-        $recipes = $admin->recipes()->with('user')->latest()->get();
+        $recipes = Recipe::where('is_featured', true)
+            ->with('user', 'likes')
+            ->latest()
+            ->get();
 
         return view('index', compact('recipes'));
     }

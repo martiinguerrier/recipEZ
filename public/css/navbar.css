@@ -452,20 +452,29 @@ a:visited {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 10px;
+}
+
+.profile-avatar-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .user-menu-btn {
-    border: none;
+    position: absolute;
+    bottom: 8px;
+    right: -3px;
+    border: 2px solid white;
     background: #ff8800;
-    border: white solid 1px;
     color: white;
-    padding: 8px 10px;
-    border-radius: 20px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
     cursor: pointer;
-    font-size: 10px;
+    font-size: 9px;
     line-height: 1;
-    transition: background 0.2s;
+    transition: ease 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -474,6 +483,9 @@ a:visited {
 .user-menu-btn:hover,
 .user-menu-btn.open {
     background: #e07500;
+    font-size: 15px;
+    width: 25px;
+    height: 25px;
 }
 
 .user-dropdown {
@@ -553,4 +565,80 @@ a:visited {
     height: 1px;
     background: #f0e8df;
     margin: 4px 0;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE NAVBAR
+═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+    /* Navbar se divide en dos filas */
+    .navbar {
+        flex-wrap: wrap;
+        padding: 0 14px;
+        align-items: center;
+        gap: 0;
+    }
+
+    /* Fila 1 izquierda: solo el logo, sin rrss */
+    .nav-left {
+        flex: 1;
+        align-items: center;
+    }
+
+    .logo {
+        width: 100px;
+        padding: 10px 0;
+        margin-right: 0;
+    }
+
+    .rrss {
+        display: none;
+    }
+
+    /* Fila 2: buscador a todo el ancho */
+    .nav-center {
+        order: 3;
+        flex: 0 0 100%;
+        padding: 0 0 10px;
+    }
+
+    .search-wrapper {
+        width: 100%;
+    }
+
+    /* Fila 1 derecha: avatar + menú sin nombre */
+    .nav-right {
+        flex-direction: row;
+        align-items: center;
+        margin-top: 0;
+        gap: 6px;
+    }
+
+    /* Ocultar el nombre de usuario */
+    .nav-right > a > span {
+        display: none;
+    }
+
+    /* Avatar e icono más compactos */
+    .profile-icon {
+        font-size: 38px;
+    }
+
+    .avatar-small {
+        width: 42px;
+        height: 42px;
+    }
+
+    /* Dropdown alineado a la derecha sin salirse */
+    .user-dropdown {
+        right: 0;
+        min-width: 190px;
+    }
+
+    /* Panel de filtros no se sale del viewport */
+    .filter-panel {
+        left: 0;
+        right: 0;
+    }
 }

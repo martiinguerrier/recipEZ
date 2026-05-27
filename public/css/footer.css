@@ -76,3 +76,50 @@ footer {
     margin: 2%;
     text-align: end;
 }
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    footer {
+        padding: 6% 4%;
+    }
+
+    .footer-container {
+        width: 100%;
+    }
+
+    .footer-top {
+        align-items: center;
+        margin-bottom: 6%;
+    }
+
+    .logoBlanco {
+        width: 90px;
+    }
+
+    .volver {
+        width: auto;
+    }
+
+    .volver-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+
+    /* Las tres columnas se apilan en vertical */
+    .footer-mid {
+        flex-direction: column;
+        gap: 24px;
+        padding-bottom: 4%;
+    }
+
+    .footer-mid h3 {
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        font-size: 13px;
+    }
+}

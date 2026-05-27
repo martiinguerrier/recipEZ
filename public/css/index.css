@@ -55,6 +55,36 @@ a:visited {
 
 .hero img {
     height: 250px;
+    max-width: 100%;
+    width: auto;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 60px 20px;
+    }
+
+    .hero img {
+        height: 160px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 40px 16px;
+    }
+
+    .hero img {
+        height: 120px;
+    }
+
+    .hero h1 {
+        font-size: 24px;
+    }
 }
 
 main {

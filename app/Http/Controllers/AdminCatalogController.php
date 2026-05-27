@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ingredient;
 use App\Models\FoodType;
 use App\Models\Diet;
+use App\Models\Recipe;
 use Illuminate\Http\Request;
 
 class AdminCatalogController extends Controller
@@ -21,7 +22,30 @@ class AdminCatalogController extends Controller
             'ingredients' => Ingredient::orderBy('name')->get(),
             'foodTypes'   => FoodType::orderBy('name')->get(),
             'diets'       => Diet::orderBy('name')->get(),
+            'allRecipes'  => Recipe::with('user')->orderBy('title')->get(),
         ]);
+    }
+
+    public function featured()
+    {
+        return view('admin.featured', [
+            'allRecipes' => Recipe::with('user')
+                ->withCount('likes')
+                ->orderByDesc('likes_count')
+                ->get(),
+        ]);
+    }
+
+    public function toggleFeatured(Recipe $recipe)
+    {
+        $recipe->is_featured = !$recipe->is_featured;
+        $recipe->save();
+
+        $msg = $recipe->is_featured
+            ? '«' . $recipe->title . '» añadida a recetas destacadas.'
+            : '«' . $recipe->title . '» eliminada de recetas destacadas.';
+
+        return back()->with('success', $msg);
     }
 
     public function store(Request $request, string $type)

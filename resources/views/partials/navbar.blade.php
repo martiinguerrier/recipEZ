@@ -126,24 +126,26 @@
 
         @auth
             <div class="nav-right-top" id="user-menu-wrapper">
-                <div class="profile-icon">
-                    <a href="{{ route('profile.recipes') }}">
-                        @if(auth()->user()->avatar)
-                            <img src="{{ asset('storage/' . auth()->user()->avatar) }}" class="avatar-small">
-                        @else
-                            <i class="bi bi-person-circle"></i>
-                        @endif
-                    </a>
-                </div>
+                <div class="profile-avatar-wrapper">
+                    <div class="profile-icon">
+                        <a href="{{ route('profile.recipes') }}">
+                            @if(auth()->user()->avatar)
+                                <img src="{{ asset('storage/' . auth()->user()->avatar) }}" class="avatar-small">
+                            @else
+                                <i class="bi bi-person-circle"></i>
+                            @endif
+                        </a>
+                    </div>
 
-                <button class="user-menu-btn" id="user-menu-btn" title="Menú">
-                    <b>☰</b>
-                </button>
+                    <button class="user-menu-btn" id="user-menu-btn" title="Menú">
+                        <b><i class="bi bi-gear"></i></b>
+                    </button>
+                </div>
 
                 <div class="user-dropdown" id="user-dropdown">
                     <div class="user-dropdown-label">Mi cuenta</div>
                     <a href="{{ route('profile.edit') }}" class="user-dropdown-item">
-                        <i class="bi bi-gear"></i> Ajustes de perfil
+                        <i class="bi bi-person"></i> Ajustes de perfil
                     </a>
                     <a href="{{ route('profile.saved') }}" class="user-dropdown-item">
                         <i class="bi bi-bookmark"></i> Recetas guardadas
@@ -160,6 +162,9 @@
                         <div class="user-dropdown-label">Administración</div>
                         <a href="{{ route('admin.catalog') }}" class="user-dropdown-item">
                             <i class="bi bi-tags"></i> Gestionar catálogo
+                        </a>
+                        <a href="{{ route('admin.featured') }}" class="user-dropdown-item">
+                            <i class="bi bi-star"></i> Recetas destacadas
                         </a>
                     @endif
                 </div>

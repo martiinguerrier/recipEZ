@@ -12,8 +12,9 @@
     src: url(../fonts/germagont/Germagont.ttf);
 }
 
-html{
+html {
     scroll-behavior: smooth;
+    overflow-x: hidden; /* evita desbordamiento horizontal global */
 }
 
 * {
@@ -25,6 +26,7 @@ body {
     margin: 0;
     background-color: rgb(245, 235, 220);
     box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 body *{
@@ -57,6 +59,20 @@ main {
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
     margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .recetas-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .recetas-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
 }
 
 .receta-tarjeta {

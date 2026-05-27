@@ -11,6 +11,11 @@ class Recipe extends Model
         'title',
         'image',
         'description',
+        'is_featured',
+    ];
+
+    protected $casts = [
+        'is_featured' => 'boolean',
     ];
 
     public function user()

@@ -24,7 +24,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/indexadmin', fn() => view('admin.indexadmin'))->name('admin.index');
     Route::get('/catalog', [AdminCatalogController::class, 'index'])->name('admin.catalog');
     Route::post('/catalog/{type}', [AdminCatalogController::class, 'store'])->name('admin.catalog.store');
-Route::delete('/catalog/{type}/{id}', [AdminCatalogController::class, 'destroy'])->name('admin.catalog.destroy');
+    Route::delete('/catalog/{type}/{id}', [AdminCatalogController::class, 'destroy'])->name('admin.catalog.destroy');
+    Route::get('/featured', [AdminCatalogController::class, 'featured'])->name('admin.featured');
+    Route::post('/recipes/{recipe}/feature', [AdminCatalogController::class, 'toggleFeatured'])->name('admin.recipes.feature');
 });
 
 // Rutas protegidas
