@@ -148,6 +148,9 @@
                     <a href="{{ route('profile.edit') }}" class="user-dropdown-item">
                         <i class="bi bi-person"></i> Gestión de cuenta
                     </a>
+                    <a href="{{ route('profile.following') }}" class="user-dropdown-item">
+                        <i class="bi bi-people"></i> Siguiendo
+                    </a>
                     <a href="{{ route('profile.saved') }}" class="user-dropdown-item">
                         <i class="bi bi-bookmark"></i> Recetas guardadas
                     </a>

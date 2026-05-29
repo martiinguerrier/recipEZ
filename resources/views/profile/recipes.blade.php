@@ -7,7 +7,13 @@
 
     <main class="profile-container">
 
-        <h1>Mis Recetas</h1>
+        <div class="my-profile-header">
+            <h1>Mis Recetas</h1>
+            <div class="public-profile-stats">
+                <span><strong>{{ auth()->user()->followers()->count() }}</strong> seguidores</span>
+                <span><strong>{{ auth()->user()->following()->count() }}</strong> siguiendo</span>
+            </div>
+        </div>
 
         <div class="recetas-grid">
 

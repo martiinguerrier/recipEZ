@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\AdminCatalogController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\AdminUserController;
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
@@ -55,6 +56,10 @@ Route::middleware('auth')->group(function () {
     // Guardados
     Route::post('/recipes/{id}/save', [RecipeSaveController::class, 'toggle'])->name('recipes.save');
     Route::get('/profile/saved', [ProfileController::class, 'saved'])->name('profile.saved');
+    Route::get('/profile/following', [ProfileController::class, 'following'])->name('profile.following');
+
+    // Seguir usuarios
+    Route::post('/users/{user}/follow', [FollowController::class, 'toggle'])->name('users.follow');
 
     // Lista de la compra
     Route::get('/shopping-list', [ShoppingListController::class, 'index'])->name('shopping.index');

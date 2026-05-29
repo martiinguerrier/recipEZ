@@ -326,6 +326,58 @@ main {
     margin: 0;
 }
 
+.my-profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: 1.5rem;
+}
+
+.my-profile-header h1 {
+    margin: 0;
+    margin-top: 1.5rem;
+}
+
+.public-profile-stats {
+    display: flex;
+    gap: 1.5rem;
+    font-size: .9rem;
+    color: #666;
+}
+
+.public-profile-stats strong {
+    color: #222;
+}
+
+.btn-follow {
+    padding: .5rem 1.5rem;
+    border-radius: 20px;
+    border: 2px solid #ff8800;
+    background: #ff8800;
+    color: #fff;
+    font-weight: 600;
+    font-size: .9rem;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.btn-follow:hover {
+    background: transparent;
+    color: #ff8800;
+}
+
+.btn-follow.following {
+    background: transparent;
+    color: #ff8800;
+}
+
+.btn-follow.following:hover {
+    background: #fee2e2;
+    border-color: #dc2626;
+    color: #dc2626;
+}
+
 /* ------------------------------
    CABECERA RESULTADOS BÚSQUEDA
 --------------------------------*/

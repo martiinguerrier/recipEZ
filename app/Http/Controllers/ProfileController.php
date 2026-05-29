@@ -88,6 +88,16 @@ class ProfileController extends Controller
         return view('profile.saved', compact('recipes'));
     }
 
+    public function following()
+    {
+        $followingIds = auth()->user()->following()->pluck('users.id');
+        $recipes = \App\Models\Recipe::with('user', 'likes')
+                    ->whereIn('user_id', $followingIds)
+                    ->latest()
+                    ->get();
+        return view('profile.following', compact('recipes'));
+    }
+
     /**
      * Perfil público de cualquier usuario.
      */
