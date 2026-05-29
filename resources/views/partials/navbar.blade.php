@@ -169,6 +169,9 @@
                         <a href="{{ route('admin.featured') }}" class="user-dropdown-item">
                             <i class="bi bi-star"></i> Recetas destacadas
                         </a>
+                        <a href="{{ route('admin.users') }}" class="user-dropdown-item">
+                            <i class="bi bi-people"></i> Gestionar usuarios
+                        </a>
                     @endif
                 </div>
             </div>

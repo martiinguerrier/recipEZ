@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\AdminCatalogController;
+use App\Http\Controllers\AdminUserController;
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
 
@@ -28,6 +29,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::delete('/catalog/{type}/{id}', [AdminCatalogController::class, 'destroy'])->name('admin.catalog.destroy');
     Route::get('/featured', [AdminCatalogController::class, 'featured'])->name('admin.featured');
     Route::post('/recipes/{recipe}/feature', [AdminCatalogController::class, 'toggleFeatured'])->name('admin.recipes.feature');
+    Route::get('/users', [AdminUserController::class, 'index'])->name('admin.users');
+    Route::post('/users/{user}/toggle-admin', [AdminUserController::class, 'toggleAdmin'])->name('admin.users.toggle');
 });
 
 // Rutas protegidas
