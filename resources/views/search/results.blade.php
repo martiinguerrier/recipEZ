@@ -52,7 +52,7 @@
                 <div class="receta-tarjeta" data-id="{{ $recipe->id }}">
 
                     <div class="receta-image">
-                        <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->title }}">
+                        <img src="{{ \Storage::url($recipe->image) }}" alt="{{ $recipe->title }}">
                         <div class="overlay"><span>VER</span></div>
                     </div>
 

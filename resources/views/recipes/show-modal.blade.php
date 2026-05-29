@@ -4,7 +4,7 @@
     <div class="modal-left">
         @if($recipe->image)
             <img class="modal-image"
-                 src="{{ asset('storage/' . $recipe->image) }}"
+                 src="{{ \Storage::url($recipe->image) }}"
                  alt="{{ $recipe->title }}"
                  onclick="abrirLightbox(this.src, this.alt)"
                  title="Ver imagen completa">

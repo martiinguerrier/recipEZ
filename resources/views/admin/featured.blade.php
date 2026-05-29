@@ -33,7 +33,7 @@
 
                 <div class="featured-item-info">
                     @if($recipe->image)
-                        <img src="{{ asset('storage/' . $recipe->image) }}" class="featured-thumb" alt="{{ $recipe->title }}">
+                        <img src="{{ \Storage::url($recipe->image) }}" class="featured-thumb" alt="{{ $recipe->title }}">
                     @else
                         <div class="featured-thumb featured-thumb-placeholder"><i class="bi bi-image"></i></div>
                     @endif

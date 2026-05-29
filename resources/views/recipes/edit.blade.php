@@ -44,7 +44,7 @@
 
             @if($recipe->image)
                 <p style="margin-top:10px;">Imagen actual:</p>
-                <img src="{{ asset('storage/' . $recipe->image) }}" 
+                <img src="{{ \Storage::url($recipe->image) }}" 
                      style="width:150px; border-radius:10px;">
             @endif
         </div>

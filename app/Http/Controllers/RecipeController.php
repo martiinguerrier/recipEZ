@@ -60,7 +60,7 @@ class RecipeController extends Controller
 
         // Subir imagen si existe
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('recipes', 'public');
+            $validated['image'] = $request->file('image')->store('recipes', 'r2');
         }
 
         // Asignar receta al usuario autenticado
@@ -129,7 +129,7 @@ class RecipeController extends Controller
 
         // Imagen nueva (si se sube)
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('recipes', 'public');
+            $path = $request->file('image')->store('recipes', 'r2');
             $validated['image'] = $path;
         }
 
