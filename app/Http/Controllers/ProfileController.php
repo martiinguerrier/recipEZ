@@ -44,8 +44,7 @@ class ProfileController extends Controller
             'avatar' => ['required', 'image', 'max:2048']
         ]);
 
-        // Guardar imagen en storage/app/public/avatars
-        $path = $request->file('avatar')->store('avatars', 'public');
+        $path = $request->file('avatar')->store('avatars', 'r2');
 
         // Guardar ruta en la BD
         $user = Auth::user();

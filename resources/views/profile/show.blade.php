@@ -10,7 +10,7 @@
     <div class="public-profile-header">
         <div class="public-profile-avatar">
             @if($user->avatar)
-                <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }}" class="public-avatar-img">
+                <img src="{{ \Storage::url($user->avatar) }}" alt="{{ $user->name }}" class="public-avatar-img">
             @else
                 <i class="bi bi-person-circle"></i>
             @endif

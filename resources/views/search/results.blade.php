@@ -32,7 +32,7 @@
                 <a href="/users/{{ $user->id }}" class="receta-tarjeta user-card">
                     <div class="receta-image">
                         @if($user->avatar)
-                            <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }}">
+                            <img src="{{ \Storage::url($user->avatar) }}" alt="{{ $user->name }}">
                         @else
                             <div class="user-avatar-placeholder"><i class="bi bi-person-circle"></i></div>
                         @endif
@@ -62,7 +62,7 @@
                         <div class="card-author">
                             <a href="/users/{{ $recipe->user_id }}" onclick="event.stopPropagation()">
                                 @if($recipe->user?->avatar)
-                                    <img src="{{ asset('storage/' . $recipe->user->avatar) }}" class="card-author-avatar" alt="{{ $recipe->user->name }}">
+                                    <img src="{{ \Storage::url($recipe->user->avatar) }}" class="card-author-avatar" alt="{{ $recipe->user->name }}">
                                 @else
                                     <i class="bi bi-person-circle"></i>
                                 @endif

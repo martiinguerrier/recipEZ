@@ -19,7 +19,7 @@
             {{-- Autor --}}
             <a href="/users/{{ $recipe->user_id }}" class="modal-author">
                 @if($recipe->user?->avatar)
-                    <img src="{{ asset('storage/' . $recipe->user->avatar) }}" class="modal-author-avatar" alt="{{ $recipe->user->name }}">
+                    <img src="{{ \Storage::url($recipe->user->avatar) }}" class="modal-author-avatar" alt="{{ $recipe->user->name }}">
                 @else
                     <i class="bi bi-person-circle modal-author-icon"></i>
                 @endif

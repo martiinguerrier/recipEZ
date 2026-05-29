@@ -24,7 +24,7 @@
                 <div class="card-author">
                     <a href="/users/{{ $recipe->user_id }}" onclick="event.stopPropagation()">
                         @if($recipe->user?->avatar)
-                            <img src="{{ asset('storage/' . $recipe->user->avatar) }}" class="card-author-avatar" alt="{{ $recipe->user->name }}">
+                            <img src="{{ \Storage::url($recipe->user->avatar) }}" class="card-author-avatar" alt="{{ $recipe->user->name }}">
                         @else
                             <i class="bi bi-person-circle"></i>
                         @endif

@@ -22,7 +22,7 @@
             <div class="profile-icon">
                 <a href="/recipes">
                     @if(auth()->user()->avatar)
-                        <img src="{{ asset('storage/' . auth()->user()->avatar) }}" class="avatar-header">
+                        <img src="{{ \Storage::url(auth()->user()->avatar) }}" class="avatar-header">
                     @else
                         <i class="bi bi-person-circle"></i>
                     @endif
@@ -57,7 +57,7 @@
 
                 <div class="avatar-preview">
                     @if(auth()->user()->avatar)
-                        <img src="{{ asset('storage/' . auth()->user()->avatar) }}" class="avatar-large">
+                        <img src="{{ \Storage::url(auth()->user()->avatar) }}" class="avatar-large">
                     @else
                         <i class="bi bi-person-circle avatar-large"></i>
                     @endif

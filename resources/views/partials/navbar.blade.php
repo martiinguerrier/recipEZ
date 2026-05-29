@@ -130,7 +130,7 @@
                     <div class="profile-icon">
                         <a href="{{ route('profile.recipes') }}">
                             @if(auth()->user()->avatar)
-                                <img src="{{ asset('storage/' . auth()->user()->avatar) }}" class="avatar-small">
+                                <img src="{{ \Storage::url(auth()->user()->avatar) }}" class="avatar-small">
                             @else
                                 <i class="bi bi-person-circle"></i>
                             @endif
