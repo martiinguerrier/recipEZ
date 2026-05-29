@@ -23,7 +23,7 @@
     @include('partials.footer')
 
 
-    <script src="https://cdn.userway.org/widget.js" data-account="H7oxU6x4tP" data-position="bottom-left" data-color="#E8A4B8" data-icon-color="#ffffff"></script>
+    <script src="https://cdn.userway.org/widget.js" data-account="H7oxU6x4tP" data-position="bottom-left" data-color="#00d9ff"></script>
     <style>
         #userwayAccessibilityIcon {
             bottom: -90vh !important;

@@ -12,10 +12,10 @@
     <div class="nav-left">
         <a href="/"><img src="{{ asset('img/Título RecipEZ.webp') }}" alt="RecipEZ" class="logo"></a>
         <div class="rrss">
-            <i class="bi-instagram"></i>
-            <i class="bi-facebook"></i>
-            <i class="bi-tiktok"></i>
-            <i class="bi-youtube"></i>
+            <a href="https://www.instagram.com/recipez.es/" target="_blank" rel="noopener"><i class="bi-instagram"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61590708171380" target="_blank" rel="noopener"><i class="bi-facebook"></i></a>
+            <a href="https://www.tiktok.com/@recipez.es?lang=es" target="_blank" rel="noopener"><i class="bi-tiktok"></i></a>
+            <a href="https://www.youtube.com/@RecipEZ-ComparteyDescubreRecet" target="_blank" rel="noopener"><i class="bi-youtube"></i></a>
         </div>
     </div>
 

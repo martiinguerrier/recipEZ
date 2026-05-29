@@ -22,10 +22,10 @@
                 <div>
                     <h3>Redes Sociales</h3>
                     <ul>
-                        <li>Instagram</li>
-                        <li>Facebook</li>
-                        <li>Tik Tok</li>
-                        <li>YouTube</li>
+                        <li><a href="https://www.instagram.com/recipez.es/" target="_blank" rel="noopener">Instagram</a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=61590708171380" target="_blank" rel="noopener">Facebook</a></li>
+                        <li><a href="https://www.tiktok.com/@recipez.es?lang=es" target="_blank" rel="noopener">Tik Tok</a></li>
+                        <li><a href="https://www.youtube.com/@RecipEZ-ComparteyDescubreRecet" target="_blank" rel="noopener">YouTube</a></li>
                     </ul>
                 </div>
                 <div>
