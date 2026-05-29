@@ -135,6 +135,7 @@
                                 <i class="bi bi-person-circle"></i>
                             @endif
                         </a>
+                        <span class="avatar-username-mobile">Perfil</span>
                     </div>
 
                     <button class="user-menu-btn" id="user-menu-btn" title="Menú">
@@ -145,7 +146,7 @@
                 <div class="user-dropdown" id="user-dropdown">
                     <div class="user-dropdown-label">Mi cuenta</div>
                     <a href="{{ route('profile.edit') }}" class="user-dropdown-item">
-                        <i class="bi bi-person"></i> Ajustes de perfil
+                        <i class="bi bi-person"></i> Gestión de cuenta
                     </a>
                     <a href="{{ route('profile.saved') }}" class="user-dropdown-item">
                         <i class="bi bi-bookmark"></i> Recetas guardadas

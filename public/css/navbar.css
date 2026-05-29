@@ -43,7 +43,7 @@ a:visited {
     top: 0;
     z-index: 10;
     border-bottom: #ff8800 solid 5px;
-    border-top: #ff8800 solid 5px;
+    padding-top: 10px;
 }
 
 .nav-left {
@@ -434,6 +434,10 @@ a:visited {
     color: rgb(0, 0, 0);
 }
 
+.avatar-username-mobile {
+    display: none;
+}
+
 .profile-icon {
     font-size: 50px;
     color: white;
@@ -575,7 +579,7 @@ a:visited {
     /* Navbar se divide en dos filas */
     .navbar {
         flex-wrap: wrap;
-        padding: 0 14px;
+        padding: 5px 14px;
         align-items: center;
         gap: 0;
     }
@@ -623,11 +627,27 @@ a:visited {
     /* Avatar e icono más compactos */
     .profile-icon {
         font-size: 45px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .avatar-username-mobile {
+        display: block;
+        font-size: .7rem;
+        color: white;
+        margin-top: -4px;
+        max-width: 60px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: center;
     }
 
     .avatar-small {
         width: 50px;
         height: 50px;
+        margin-top: 6px;
     }
 
     /* Botón de menú: sale del posicionamiento absoluto y queda al lado del avatar */

@@ -9,9 +9,14 @@
                     <h3>Navegación</h3>
                     <ul>
                         <li><a href="/">Inicio</a></li>
-                        <li><a href="/login">Iniciar sesión</a></li>
-                        <li><a href="/register">Registrarse</a></li>
-                        <li>Cerrar sesión</li>
+                        <li><a href="{{ route('profile.recipes') }}">Perfil</a></li>
+                        <li><a href="{{ route('profile.edit') }}">Gestión de cuenta</a></li>
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}" style="display:inline">
+                                @csrf
+                                <button type="submit" style="background:none; border:none; cursor:pointer; padding:0; color:inherit; font:inherit;">Cerrar sesión</button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
                 <div>
@@ -26,10 +31,10 @@
                 <div>
                     <h3>Información Legal</h3>
                     <ul>
-                        <li>Condiciones de uso</li>
-                        <li>Aviso de cookies</li>
-                        <li>Configuración de cookies</li>
-                        <li>Declaración de Accesibilidad</li>
+                        <li><a href="{{ route('legal.condiciones') }}">Condiciones de uso</a></li>
+                        <li><a href="{{ route('legal.cookies') }}">Aviso de cookies</a></li>
+                        <li><a href="{{ route('legal.configuracion-cookies') }}">Configuración de cookies</a></li>
+                        <li><a href="{{ route('legal.accesibilidad') }}">Declaración de Accesibilidad</a></li>
                     </ul>
                 </div>
             </div>

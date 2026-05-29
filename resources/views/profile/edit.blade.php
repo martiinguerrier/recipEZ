@@ -42,7 +42,7 @@
 
     <main class="profile-container">
 
-        <h1>Configuración de Perfil</h1>
+        <h1>Gestión de cuenta</h1>
 
         @if (session('status'))
             <div class="status-box">

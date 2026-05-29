@@ -62,6 +62,7 @@ a:visited {
 @media (max-width: 768px) {
     .hero {
         padding: 60px 20px;
+        background-size: 150%;
     }
 
     .hero img {

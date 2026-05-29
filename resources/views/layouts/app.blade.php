@@ -33,7 +33,12 @@
     {{-- FOOTER --}}
     @include('partials.footer')
 
-    <script src="https://cdn.userway.org/widget.js" data-account="H7oxU6x4tP" data-position="bottom-left"></script>
+    <script src="https://cdn.userway.org/widget.js" data-account="H7oxU6x4tP" data-position="bottom-left" data-color="#00d9ff"></script>
 </body>
-
+<style>
+    #userwayAccessibilityIcon {
+        bottom: -90vh !important;
+        right: -1vw !important;
+    }
+</style>
 </html>

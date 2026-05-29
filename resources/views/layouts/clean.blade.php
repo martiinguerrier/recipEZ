@@ -23,6 +23,15 @@
     @include('partials.footer')
 
 
-    <script src="https://cdn.userway.org/widget.js" data-account="H7oxU6x4tP" data-position="bottom-left"></script>
+    <script src="https://cdn.userway.org/widget.js" data-account="H7oxU6x4tP" data-position="bottom-left" data-color="#E8A4B8" data-icon-color="#ffffff"></script>
+    <style>
+        #userwayAccessibilityIcon {
+            bottom: -90vh !important;
+            right: -1vw !important;
+        }
+        #userwayAccessibilityIcon svg path {
+            fill: #ffffff !important;
+        }
+    </style>
 </body>
 </html>

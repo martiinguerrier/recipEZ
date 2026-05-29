@@ -84,5 +84,11 @@ Route::get('/make-admin-a7f3k9', function () {
     return 'Hecho. ' . $user->email . ' ahora es admin. ELIMINA ESTA RUTA.';
 });
 
+// Páginas legales
+Route::get('/condiciones-de-uso', fn() => view('legal.condiciones'))->name('legal.condiciones');
+Route::get('/aviso-de-cookies', fn() => view('legal.cookies'))->name('legal.cookies');
+Route::get('/configuracion-de-cookies', fn() => view('legal.configuracion-cookies'))->name('legal.configuracion-cookies');
+Route::get('/accesibilidad', fn() => view('legal.accesibilidad'))->name('legal.accesibilidad');
+
 // Rutas de autenticación generadas por Breeze
 require __DIR__ . '/auth.php';

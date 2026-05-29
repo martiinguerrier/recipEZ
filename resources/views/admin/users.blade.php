@@ -18,6 +18,37 @@
         .btn-toggle-admin { padding: .35rem .85rem; border: none; border-radius: 6px; cursor: pointer; font-size: .85rem; font-weight: 600; }
         .btn-toggle-admin.make   { background: #ff6b35; color: #fff; }
         .btn-toggle-admin.revoke { background: #e0e0e0; color: #555; }
+
+        @media (max-width: 640px) {
+            .users-table thead { display: none; }
+            .users-table, .users-table tbody, .users-table tr, .users-table td { display: block; width: 100%; }
+            .users-table tr {
+                border: 1px solid #eee;
+                border-radius: 10px;
+                margin-bottom: 1rem;
+                padding: .75rem 1rem;
+                background: #fff;
+            }
+            .users-table tr:hover td { background: transparent; }
+            .users-table td {
+                border: none;
+                padding: .3rem 0;
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+                font-size: .9rem;
+            }
+            .users-table td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                font-size: .75rem;
+                text-transform: uppercase;
+                color: #aaa;
+                min-width: 70px;
+            }
+            .users-table td:first-child::before { content: ''; min-width: 0; }
+            .search-bar { flex-direction: column; }
+        }
     </style>
 @endpush
 
@@ -70,16 +101,16 @@
                             <span style="font-size:.75rem; color:#aaa">(tú)</span>
                         @endif
                     </td>
-                    <td>{{ $user->email }}</td>
-                    <td>
+                    <td data-label="Email">{{ $user->email }}</td>
+                    <td data-label="Rol">
                         @if($user->is_admin)
                             <span class="badge-admin"><i class="bi bi-shield-fill-check"></i> Admin</span>
                         @else
                             <span class="badge-user">Usuario</span>
                         @endif
                     </td>
-                    <td>{{ $user->recipes_count ?? $user->recipes->count() }}</td>
-                    <td>
+                    <td data-label="Recetas">{{ $user->recipes_count ?? $user->recipes->count() }}</td>
+                    <td data-label="Acción">
                         @if($user->id !== auth()->id())
                             <form method="POST" action="{{ route('admin.users.toggle', $user) }}">
                                 @csrf
