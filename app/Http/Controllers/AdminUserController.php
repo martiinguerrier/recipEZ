@@ -20,6 +20,18 @@ class AdminUserController extends Controller
         return view('admin.users', compact('users', 'search'));
     }
 
+    public function destroy(User $user)
+    {
+        if ($user->id === auth()->id()) {
+            return back()->with('error', 'No puedes eliminar tu propia cuenta.');
+        }
+
+        $name = $user->name;
+        $user->delete();
+
+        return back()->with('success', "Usuario \"{$name}\" eliminado correctamente.");
+    }
+
     public function toggleAdmin(User $user)
     {
         if ($user->id === auth()->id()) {

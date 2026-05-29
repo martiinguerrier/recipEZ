@@ -31,6 +31,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/recipes/{recipe}/feature', [AdminCatalogController::class, 'toggleFeatured'])->name('admin.recipes.feature');
     Route::get('/users', [AdminUserController::class, 'index'])->name('admin.users');
     Route::post('/users/{user}/toggle-admin', [AdminUserController::class, 'toggleAdmin'])->name('admin.users.toggle');
+    Route::delete('/users/{user}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
 });
 
 // Rutas protegidas

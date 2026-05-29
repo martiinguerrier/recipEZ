@@ -18,6 +18,8 @@
         .btn-toggle-admin { padding: .35rem .85rem; border: none; border-radius: 6px; cursor: pointer; font-size: .85rem; font-weight: 600; }
         .btn-toggle-admin.make   { background: #ff6b35; color: #fff; }
         .btn-toggle-admin.revoke { background: #e0e0e0; color: #555; }
+        .btn-delete-user { padding: .35rem .85rem; border: none; border-radius: 6px; cursor: pointer; font-size: .85rem; font-weight: 600; background: #fee2e2; color: #dc2626; margin-left: .5rem; }
+        .btn-delete-user:hover { background: #dc2626; color: #fff; }
 
         @media (max-width: 640px) {
             .users-table thead { display: none; }
@@ -112,20 +114,30 @@
                     <td data-label="Recetas">{{ $user->recipes_count ?? $user->recipes->count() }}</td>
                     <td data-label="Acción">
                         @if($user->id !== auth()->id())
-                            <form method="POST" action="{{ route('admin.users.toggle', $user) }}">
-                                @csrf
-                                @if($user->is_admin)
-                                    <button class="btn-toggle-admin revoke"
-                                            onclick="return confirm('¿Quitar admin a {{ $user->name }}?')">
-                                        <i class="bi bi-shield-x"></i> Quitar admin
+                            <div style="display:flex; align-items:center; gap:.5rem; flex-wrap:wrap;">
+                                <form method="POST" action="{{ route('admin.users.toggle', $user) }}">
+                                    @csrf
+                                    @if($user->is_admin)
+                                        <button class="btn-toggle-admin revoke"
+                                                onclick="return confirm('¿Quitar admin a {{ $user->name }}?')">
+                                            <i class="bi bi-shield-x"></i> Quitar admin
+                                        </button>
+                                    @else
+                                        <button class="btn-toggle-admin make"
+                                                onclick="return confirm('¿Hacer admin a {{ $user->name }}?')">
+                                            <i class="bi bi-shield-plus"></i> Hacer admin
+                                        </button>
+                                    @endif
+                                </form>
+                                <form method="POST" action="{{ route('admin.users.destroy', $user) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn-delete-user"
+                                            onclick="return confirm('¿Eliminar a {{ $user->name }}? Esta acción no se puede deshacer.')">
+                                        <i class="bi bi-trash3"></i> Eliminar
                                     </button>
-                                @else
-                                    <button class="btn-toggle-admin make"
-                                            onclick="return confirm('¿Hacer admin a {{ $user->name }}?')">
-                                        <i class="bi bi-shield-plus"></i> Hacer admin
-                                    </button>
-                                @endif
-                            </form>
+                                </form>
+                            </div>
                         @endif
                     </td>
                 </tr>
