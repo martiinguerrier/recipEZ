@@ -41,7 +41,7 @@ class ProfileController extends Controller
     public function updateAvatar(Request $request)
     {
         $request->validate([
-            'avatar' => ['required', 'image', 'max:2048']
+            'avatar' => ['required', 'image', 'max:10240']
         ]);
 
         $path = $request->file('avatar')->store('avatars', 'r2');
