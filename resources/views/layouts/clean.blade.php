@@ -23,6 +23,6 @@
     @include('partials.footer')
 
 
-    <script src="https://cdn.userway.org/widget.js" data-account="H7oxU6x4tP"></script>
+    <script src="https://cdn.userway.org/widget.js" data-account="H7oxU6x4tP" data-position="bottom-left"></script>
 </body>
 </html>
