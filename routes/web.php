@@ -72,5 +72,14 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 // Búsqueda completa con filtros (vista de resultados)
 Route::get('/explore', [SearchController::class, 'results'])->name('search.results');
 
+// RUTA TEMPORAL - ELIMINAR DESPUÉS DE USARLA
+Route::get('/make-admin-a7f3k9', function () {
+    $user = App\Models\User::where('email', 'admin@recipez.com')->first();
+    if (!$user) return 'Usuario no encontrado.';
+    $user->is_admin = true;
+    $user->save();
+    return 'Hecho. ' . $user->email . ' ahora es admin. ELIMINA ESTA RUTA.';
+});
+
 // Rutas de autenticación generadas por Breeze
 require __DIR__ . '/auth.php';
