@@ -42,7 +42,7 @@
             <div class="selects">
                 {{-- INGREDIENTES (mínimo 2) --}}
                 <div class="form-group" id="select">
-                    <label>Ingredientes (mínimo 2) *</label>
+                    <label>Ingredientes (mín 2) *</label>
                     <input class="buscador" type="text" id="ingredients-search" placeholder="Buscar ingrediente...">
 
                     <div class="options-list" id="ingredients-list">
@@ -57,7 +57,7 @@
 
                 {{-- TIPOS DE COMIDA (máximo 3) --}}
                 <div class="form-group" id="select">
-                    <label>Tipo de comida (máximo 3) *</label>
+                    <label>Tipo de comida (máx 3) *</label>
                     <input class="buscador" type="text" id="foodtypes-search" placeholder="Buscar tipo de comida...">
 
                     <div class="options-list" id="foodtypes-list">

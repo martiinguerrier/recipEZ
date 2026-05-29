@@ -51,4 +51,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Recipe::class, 'recipe_saves');
     }
 
+    public function shoppingList()
+    {
+        return $this->hasMany(ShoppingListItem::class);
+    }
+
 }

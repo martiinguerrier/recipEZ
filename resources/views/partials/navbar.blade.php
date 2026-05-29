@@ -150,6 +150,9 @@
                     <a href="{{ route('profile.saved') }}" class="user-dropdown-item">
                         <i class="bi bi-bookmark"></i> Recetas guardadas
                     </a>
+                    <a href="{{ route('shopping.index') }}" class="user-dropdown-item">
+                        <i class="bi bi-cart3"></i> Lista de la compra
+                    </a>
                     <form class="user-dropdown-item" method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="user-dropdown-item user-dropdown-logout">
@@ -391,4 +394,100 @@
     }
 
 })();
+
+// ── Lista de la compra ───────────────────────────────────────────────────
+
+// Delegación: toggle seleccionado en ingredientes del modal
+document.addEventListener('click', e => {
+    const item = e.target.closest('.modal-ingredient-item');
+    if (!item) return;
+
+    item.classList.toggle('selected');
+
+    // Actualizar estado del botón del carrito
+    const modalBody = document.getElementById('modal-body');
+    if (!modalBody) return;
+    const selected = modalBody.querySelectorAll('.modal-ingredient-item.selected');
+    const cartBtn  = modalBody.querySelector('.modal-cart-btn');
+    if (!cartBtn || cartBtn.classList.contains('added')) return;
+
+    const label = cartBtn.querySelector('.modal-cart-label');
+    if (selected.length === 0) {
+        cartBtn.classList.add('modal-cart-btn--empty');
+        cartBtn.title = 'Selecciona ingredientes para añadir';
+        if (label) label.textContent = 'Selecciona ingredientes';
+    } else {
+        cartBtn.classList.remove('modal-cart-btn--empty');
+        cartBtn.title = `Añadir ${selected.length} ingrediente${selected.length > 1 ? 's' : ''} a la lista`;
+        if (label) label.textContent = `Añadir ${selected.length}`;
+    }
+});
+
+window.addToShoppingList = function (recipeId, btn) {
+    if (btn.classList.contains('modal-cart-btn--empty') || btn.classList.contains('added')) return;
+
+    const selected = [...document.querySelectorAll('.modal-ingredient-item.selected')]
+        .map(el => el.dataset.id);
+
+    if (selected.length === 0) return;
+
+    btn.disabled = true;
+
+    const body = new FormData();
+    selected.forEach(id => body.append('ingredient_ids[]', id));
+
+    fetch(`/shopping-list/recipe/${recipeId}`, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            'Accept': 'application/json',
+        },
+        body,
+    })
+    .then(r => r.json())
+    .then(() => {
+        btn.classList.add('added');
+        btn.innerHTML = '<i class="bi bi-cart-check"></i> <span class="modal-cart-label">¡Añadidos!</span>';
+        btn.title = 'Ingredientes añadidos a tu lista';
+    })
+    .catch(() => {
+        btn.disabled = false;
+    });
+};
+
+// ── Lightbox de imagen completa ───────────────────────────────────────────
+window.cerrarLightbox = function () {
+    const lb = document.getElementById('lightbox-overlay');
+    if (!lb) return;
+    lb.classList.remove('lb-show');
+    setTimeout(() => { lb.style.display = 'none'; }, 250);
+};
+
+window.abrirLightbox = function (src, alt) {
+    let lb = document.getElementById('lightbox-overlay');
+
+    if (!lb) {
+        lb = document.createElement('div');
+        lb.id = 'lightbox-overlay';
+        lb.innerHTML = `
+            <button class="lb-close" onclick="cerrarLightbox()" title="Cerrar"></button>
+            <img class="lb-img" src="" alt="">
+        `;
+        // Cerrar al clicar el fondo
+        lb.addEventListener('click', e => {
+            if (e.target === lb) cerrarLightbox();
+        });
+        // Cerrar con Escape
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && lb.classList.contains('lb-show')) cerrarLightbox();
+        });
+        document.body.appendChild(lb);
+    }
+
+    lb.querySelector('.lb-img').src = src;
+    lb.querySelector('.lb-img').alt = alt || '';
+    lb.style.display = 'flex';
+    // Forzar repaint para que la transición arranque
+    requestAnimationFrame(() => requestAnimationFrame(() => lb.classList.add('lb-show')));
+};
 </script>

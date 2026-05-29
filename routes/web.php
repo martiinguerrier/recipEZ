@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\RecipeLikeController;
 use App\Http\Controllers\RecipeSaveController;
+use App\Http\Controllers\ShoppingListController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +51,13 @@ Route::middleware('auth')->group(function () {
     // Guardados
     Route::post('/recipes/{id}/save', [RecipeSaveController::class, 'toggle'])->name('recipes.save');
     Route::get('/profile/saved', [ProfileController::class, 'saved'])->name('profile.saved');
+
+    // Lista de la compra
+    Route::get('/shopping-list', [ShoppingListController::class, 'index'])->name('shopping.index');
+    Route::post('/shopping-list/recipe/{recipe}', [ShoppingListController::class, 'addFromRecipe'])->name('shopping.add');
+    Route::delete('/shopping-list/{item}', [ShoppingListController::class, 'remove'])->name('shopping.remove');
+    Route::delete('/shopping-list', [ShoppingListController::class, 'clear'])->name('shopping.clear');
+    Route::post('/shopping-list/send', [ShoppingListController::class, 'sendEmail'])->name('shopping.send');
 });
 
 // Ruta pública para ver el modal de una receta

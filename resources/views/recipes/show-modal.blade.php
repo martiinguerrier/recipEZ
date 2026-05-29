@@ -3,7 +3,11 @@
     {{-- Imagen a la izquierda --}}
     <div class="modal-left">
         @if($recipe->image)
-            <img class="modal-image" src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->title }}">
+            <img class="modal-image"
+                 src="{{ asset('storage/' . $recipe->image) }}"
+                 alt="{{ $recipe->title }}"
+                 onclick="abrirLightbox(this.src, this.alt)"
+                 title="Ver imagen completa">
         @endif
     </div>
 
@@ -41,7 +45,9 @@
                 <h3>Ingredientes</h3>
                 <ul class="modal-ingredients">
                     @foreach($recipe->ingredients as $ingredient)
-                        <li>{{ $ingredient->name }}</li>
+                        <li class="modal-ingredient-item" data-id="{{ $ingredient->id }}">
+                            {{ $ingredient->name }}
+                        </li>
                     @endforeach
                 </ul>
             </div>
@@ -54,7 +60,7 @@
 
         </div>
 
-        {{-- Footer: like + guardar --}}
+        {{-- Footer: like + guardar + lista de la compra --}}
         <div class="modal-footer">
             <span id="modal-like-btn-{{ $recipe->id }}" class="modal-like-icon"
                 onclick="toggleLikeModal({{ $recipe->id }})">
@@ -77,6 +83,15 @@
                     <i class="bi bi-bookmark"></i>
                 @endif
             </span>
+
+            {{-- Añadir ingredientes seleccionados a la lista de la compra --}}
+            <button id="modal-cart-btn-{{ $recipe->id }}"
+                    class="modal-cart-btn modal-cart-btn--empty"
+                    onclick="addToShoppingList({{ $recipe->id }}, this)"
+                    title="Selecciona ingredientes para añadir">
+                <i class="bi bi-cart-plus"></i>
+                <span class="modal-cart-label">Selecciona ingredientes</span>
+            </button>
             @endauth
         </div>
 

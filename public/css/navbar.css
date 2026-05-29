@@ -622,12 +622,33 @@ a:visited {
 
     /* Avatar e icono más compactos */
     .profile-icon {
-        font-size: 38px;
+        font-size: 45px;
     }
 
     .avatar-small {
-        width: 42px;
-        height: 42px;
+        width: 50px;
+        height: 50px;
+    }
+
+    /* Botón de menú: sale del posicionamiento absoluto y queda al lado del avatar */
+    .profile-avatar-wrapper {
+        gap: 10px;          /* espacio entre avatar y botón */
+    }
+
+    .user-menu-btn {
+        position: relative; /* deja de superponerse al avatar */
+        bottom: auto;
+        right: auto;
+        width: 28px;
+        height: 28px;
+        font-size: 13px;
+    }
+
+    .user-menu-btn:hover,
+    .user-menu-btn.open {
+        width: 30px;
+        height: 30px;
+        font-size: 15px;
     }
 
     /* Dropdown alineado a la derecha sin salirse */

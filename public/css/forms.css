@@ -77,10 +77,12 @@ body {
     color: #444;
 }
 
-/* Inputs y textarea */
-.form-group input,
+/* Inputs y textarea — excluye checkboxes */
+.form-group input:not([type="checkbox"]),
 .form-group textarea,
 .form-group select {
+    width: 100%;
+    box-sizing: border-box;
     padding: 12px;
     border-radius: 10px;
     border: 1px solid #ddd;
@@ -94,7 +96,7 @@ body {
     height: 200px;
 }
 
-.form-group input:focus,
+.form-group input:not([type="checkbox"]):focus,
 .form-group textarea:focus,
 .form-group select:focus {
     border-color: #ff8800;
@@ -128,19 +130,20 @@ body {
     background: #ff8800;
 }
 
-.selects{
+.selects {
     width: 97%;
     display: flex;
     justify-content: space-between;
 }
 
-.selects .form-group{
+.selects .form-group {
     width: 30%;
 }
 
 .options-list {
     max-height: 200px;
     width: 100%;
+    box-sizing: border-box;
     overflow-y: auto;
     border: 1px solid #ddd;
     border-radius: 10px;
@@ -158,6 +161,10 @@ body {
     font-size: 0.8rem;
 }
 
+.option-item input[type="checkbox"] {
+    accent-color: #ff8800;
+}
+
 .buscador {
     width: 100%;
 }
@@ -166,13 +173,15 @@ body {
    RESPONSIVE
 ============================ */
 
+/* ── Tablet (≤ 768px) ── */
 @media (max-width: 768px) {
 
     .create-recipe-container,
     .edit-recipe-container {
-        max-width: 100%;
-        margin: 16px;
-        padding: 20px;
+        max-width: calc(100% - 32px);
+        margin: 20px auto;
+        padding: 24px 20px;
+        box-sizing: border-box;
     }
 
     .selects {
@@ -187,5 +196,39 @@ body {
 
     .btn-primary {
         width: 100%;
+    }
+}
+
+/* ── Móvil (≤ 480px) ── */
+@media (max-width: 480px) {
+
+    .create-recipe-container,
+    .edit-recipe-container {
+        max-width: calc(100% - 24px);
+        margin: 12px auto;
+        padding: 18px 14px;
+        border-radius: 12px;
+    }
+
+    .create-recipe-container h1,
+    .edit-recipe-container h1 {
+        font-size: 1.4rem;
+        margin-bottom: 18px;
+    }
+
+    .form-group input:not([type="checkbox"]),
+    .form-group textarea,
+    .form-group select {
+        font-size: 0.95rem;
+        padding: 10px;
+    }
+
+    .form-group textarea {
+        height: 150px;
+    }
+
+    .btn-primary {
+        font-size: 1rem;
+        padding: 12px;
     }
 }
