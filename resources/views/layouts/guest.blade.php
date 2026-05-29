@@ -26,5 +26,6 @@
                 {{ $slot }}
             </div>
         </div>
+        <script src="https://cdn.userway.org/widget.js" data-account="H7oxU6x4tP"></script>
     </body>
 </html>
