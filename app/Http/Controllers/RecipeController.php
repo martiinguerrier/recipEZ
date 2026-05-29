@@ -42,8 +42,8 @@ class RecipeController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
 
-            // Imagen opcional
-            'image' => 'nullable|image|max:2048',
+            // Imagen obligatoria
+            'image' => 'required|image|max:2048',
 
             // Ingredientes: obligatorio, mínimo 2
             'ingredients' => 'required|array|min:2',

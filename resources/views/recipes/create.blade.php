@@ -29,8 +29,8 @@
 
             {{-- Imagen --}}
             <div class="form-group">
-                <label for="image">Imagen</label>
-                <input type="file" id="image" name="image" accept="image/*">
+                <label for="image">Imagen <span style="color:red">*</span></label>
+                <input type="file" id="image" name="image" accept="image/*" required>
             </div>
 
             {{-- Preparación --}}
